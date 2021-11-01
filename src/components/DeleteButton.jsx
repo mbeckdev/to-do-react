@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const WrapperDeleteButton = styled.section`
+const WrapperDeleteButton = styled.button`
   --delete-icon-color: ${(props) => props.theme.colors.iconColorPrimary};
   --delete-icon-color2: ${(props) => props.theme.colors.iconColorSecondary};
 
-  button {
-    background-color: transparent;
-  }
+  background-color: transparent;
 
   .delete-icon {
     display: flex;
@@ -92,13 +90,13 @@ const WrapperDeleteButton = styled.section`
 
 function DeleteButton() {
   return (
-    <WrapperDeleteButton>
-      <button className="delete-button">
-        <div className="delete-icon">
-          <div className="delete-icon1"></div>
-          <div className="delete-icon2"></div>
-        </div>
-      </button>
+    <WrapperDeleteButton className="delete-button">
+      {/* <button className="delete-button"> */}
+      <div className="delete-icon">
+        <div className="delete-icon1"></div>
+        <div className="delete-icon2"></div>
+      </div>
+      {/* </button> */}
     </WrapperDeleteButton>
   );
 }

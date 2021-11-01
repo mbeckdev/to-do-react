@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import DeleteButton from './DeleteButton';
+import EditButton from './EditButton';
 
-const WrapperTask = styled.section`
+const WrapperTask = styled.div`
   display: flex;
   align-items: center;
 
@@ -23,16 +24,16 @@ const WrapperTask = styled.section`
 
 function Task() {
   return (
-    <div className="task">
-      <WrapperTask>
-        <DeleteButton />
-
-        <button>Edit</button>
-        <div>12-12-12</div>
-        <input type="checkbox" />
-        <div className="task-title">Task title text hereeeeee e ee e e e</div>
-      </WrapperTask>
-    </div>
+    // <div className="task">
+    <WrapperTask className="task">
+      <DeleteButton />
+      <EditButton />
+      {/* <button>Edit</button> */}
+      <div>12-12-12</div>
+      <input type="checkbox" />
+      <div className="task-title">Task title text hereeeeee e ee e e e</div>
+    </WrapperTask>
+    // </div>
   );
 }
 
