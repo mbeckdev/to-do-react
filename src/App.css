@@ -3,34 +3,3 @@
   margin: 0;
   box-sizing: border-box;
 }
-
-.App {
-  text-align: center;
-  min-height: 100vh;
-}
-
-.App-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-body {
-  /* color: white; */
-  /* background-color: #282c34; */
-  /* height: 100%; */
-}
-header {
-  background-color: #282c84;
-  /* height: 100px; */
-}
-main {
-  /* min-height: 100vh; */
-  /* min-height: calc(100% - (100px)); */
-}
