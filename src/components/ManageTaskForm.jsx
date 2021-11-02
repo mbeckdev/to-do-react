@@ -15,14 +15,6 @@ const WrapperManageTaskForm = styled.form`
   background-color: ${(props) => props.theme.colors.color5BlackLighter1};
   /* color: var(--main-text-color); */
 
-  button {
-    border-radius: 5px;
-    padding: 3px 15px;
-    /* font-family: sans-serif; */
-
-    background-color: ${(props) => props.theme.colors.color3Green};
-  }
-
   h2 {
     color: ${(props) => props.theme.colors.color4LightBlue};
   }
@@ -84,7 +76,7 @@ function ManageTaskForm(props) {
         <input name="task-due-date" type="date" />
       </div>
 
-      <button>OK</button>
+      <button className="regular-button">OK</button>
     </WrapperManageTaskForm>
   );
 }

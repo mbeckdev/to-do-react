@@ -64,7 +64,12 @@ const WrapperApp = styled.section`
     justify-content: center;
     font-size: calc(10px + 2vmin);
   }
-
+  .regular-button {
+    border-radius: 5px;
+    padding: 3px 15px;
+    font-family: sans-serif;
+    background-color: ${(props) => props.theme.colors.color3Green};
+  }
   header {
     background-color: #282c84;
     /* height: 100px; */
@@ -196,7 +201,9 @@ function App() {
             <div id="main-width-container">
               <ManageTaskForm formIsHidden={manageTaskFormIsHidden} />
               <p>main stuff here</p>
-              <button onClick={handleAddTask}>ADD TASK</button>
+              <button className="regular-button" onClick={handleAddTask}>
+                ADD TASK
+              </button>
               <ul id="task-container">
                 {tasks.map((task) => (
                   <Task

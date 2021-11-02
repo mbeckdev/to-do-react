@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const WrapperDeleteButton = styled.button`
   --delete-icon-color: ${(props) => props.theme.colors.iconColorPrimary};
   --delete-icon-color2: ${(props) => props.theme.colors.iconColorSecondary};
-
   background-color: transparent;
 
   .delete-icon {
