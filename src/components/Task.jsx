@@ -1,37 +1,57 @@
 import React from 'react';
 import styled from 'styled-components';
+import format from 'date-fns/format';
 
 import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
 
 const WrapperTask = styled.li`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   button {
     /* border: 1px solid red; */
     /* border: none; */
+    width: 28px;
+    display: flex;
+    justify-content: center;
+    margin: 0 1px;
   }
 
   .task-title {
-    /* margin-left: 5px; */
+    text-align: left;
+    margin-left: 10px;
+    text-indent: -10px;
   }
 
   input {
     margin-left: 10px;
     margin-right: 5px;
+    margin-top: 5px;
   }
 
   .due-date {
     letter-spacing: -2px;
+
+    /* don't grow, don't shrink, width */
+    flex: 0 0 auto;
   }
 `;
 
+const getFormattedDueDate = (dueDate) => {
+  if (isNaN(dueDate.getTime())) {
+    // Date was not entered:
+    return '';
+  } else {
+    return format(dueDate, 'MM-dd-yy');
+  }
+};
+
 function Task(props) {
-  // console.log('props', props);
-  // console.log('props.task', props.task);
-  // console.log('props.task.text', props.task.text);
-  // console.log(props);
+  // console.log(props.task);
+  // let
+
+  console.log('props.task.dueDate', props.task.dueDate);
   return (
     // <div className="task">
     <WrapperTask className="task">
@@ -41,7 +61,8 @@ function Task(props) {
       />
       <EditButton />
       {/* <button>Edit</button> */}
-      <div className="due-date">12-34-12</div>
+      <div className="due-date">{getFormattedDueDate(props.task.dueDate)}</div>
+
       <input type="checkbox" />
       <div className="task-title">{props.task.text}</div>
     </WrapperTask>

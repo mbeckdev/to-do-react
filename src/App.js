@@ -98,6 +98,10 @@ const WrapperApp = styled.section`
     border: 1px solid orange;
   }
 
+  ul {
+    list-style-type: none;
+  }
+
   footer {
     height: 1.6rem;
     border: 1px solid yellow;
@@ -117,6 +121,7 @@ function App() {
       text: 'Task1 text goes hereeeeeee alskdjf blah ipsum dur haaa',
       taskDescription:
         'longer1 description is this part where it shows up when you click on it',
+      dueDate: new Date('Dec 30 2000'),
     },
     {
       isEditing: false,
@@ -124,6 +129,7 @@ function App() {
       text: 'Task2 text goesum dur haaa',
       taskDescription:
         'longer2 description is this part where it shows up when you click on it',
+      dueDate: new Date('Dec 30 2000'),
     },
     {
       isEditing: false,
@@ -131,6 +137,7 @@ function App() {
       text: 'Task3 text goes herur haaa',
       taskDescription:
         'longer3 description is this part where it shows up when you click on it',
+      dueDate: new Date('Jan 1 2000'),
     },
     {
       isEditing: false,
@@ -138,10 +145,27 @@ function App() {
       text: 'Task4 text goes herur haaa',
       taskDescription:
         '4 description is this part where it shows up when you click on it',
+      dueDate: new Date('Jan 1 2000'),
     },
   ]);
 
   const findIndex = () => {};
+
+  const handleAddTask = () => {
+    console.log('handling add task');
+
+    let newTask = {
+      isEditing: false,
+      id: uniqid(),
+      text: 'Task4 text goes herur haaa',
+      taskDescription:
+        '4 description is this part where it shows up when you click on it',
+      dueDate: new Date('Jan 2 2000'),
+    };
+    let newTasks = [...tasks, newTask];
+
+    setTasks(newTasks);
+  };
 
   const handleDeleteTask = (thisId) => {
     console.log('handling delete task', thisId);
@@ -161,7 +185,7 @@ function App() {
           <main>
             <div id="main-width-container">
               <p>main stuff here</p>
-              <button>ADD TASK</button>
+              <button onClick={handleAddTask}>ADD TASK</button>
               <ul id="task-container">
                 {tasks.map((task) => (
                   <Task
