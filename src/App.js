@@ -1,6 +1,8 @@
 import './App.css';
 import TestComponent from './components/TestComponent';
 import styled, { ThemeProvider } from 'styled-components';
+import React, { useState } from 'react';
+import uniqid from 'uniqid';
 
 import Task from './components/Task';
 
@@ -40,6 +42,8 @@ let lightTheme = {
 };
 lightTheme.colors.textColor1 = lightTheme.colors.color2Yellow;
 lightTheme.colors.textColor2 = lightTheme.colors.color1Red;
+lightTheme.colors.iconColorPrimary = lightTheme.colors.color4LightBlue;
+lightTheme.colors.iconColorSecondary = lightTheme.colors.color5Black;
 
 const WrapperApp = styled.section`
   background: ${(props) => props.theme.colors.color5Black};
@@ -78,7 +82,7 @@ const WrapperApp = styled.section`
     align-items: center;
   }
 
-  main #class-container {
+  main #task-container {
     max-width: 500px;
     display: flex;
     flex-direction: column;
@@ -105,6 +109,47 @@ const WrapperApp = styled.section`
 
 function App() {
   let useLightTheme = false;
+
+  const [tasks, setTasks] = useState([
+    {
+      isEditing: false,
+      id: uniqid(),
+      text: 'Task1 text goes hereeeeeee alskdjf blah ipsum dur haaa',
+      taskDescription:
+        'longer1 description is this part where it shows up when you click on it',
+    },
+    {
+      isEditing: false,
+      id: uniqid(),
+      text: 'Task2 text goesum dur haaa',
+      taskDescription:
+        'longer2 description is this part where it shows up when you click on it',
+    },
+    {
+      isEditing: false,
+      id: uniqid(),
+      text: 'Task3 text goes herur haaa',
+      taskDescription:
+        'longer3 description is this part where it shows up when you click on it',
+    },
+    {
+      isEditing: false,
+      id: uniqid(),
+      text: 'Task4 text goes herur haaa',
+      taskDescription:
+        '4 description is this part where it shows up when you click on it',
+    },
+  ]);
+
+  const findIndex = () => {};
+
+  const handleDeleteTask = (thisId) => {
+    console.log('handling delete task', thisId);
+
+    let newTasks = tasks.filter((item) => item.id !== thisId);
+    setTasks(newTasks);
+  };
+
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>
       {/* <ThemeProvider theme={darkTheme}> */}
@@ -116,11 +161,17 @@ function App() {
           <main>
             <div id="main-width-container">
               <p>main stuff here</p>
-              <div id="class-container">
-                <Task />
-                <Task />
-                <Task />
-              </div>
+              <button>ADD TASK</button>
+              <ul id="task-container">
+                {tasks.map((task) => (
+                  <Task
+                    task={task}
+                    key={task.id}
+                    handleDeleteTask={handleDeleteTask}
+                  />
+                ))}
+              </ul>
+
               <TestComponent />
               <div id="extra-space"></div>
             </div>

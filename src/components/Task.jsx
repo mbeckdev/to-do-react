@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
 
-const WrapperTask = styled.div`
+const WrapperTask = styled.li`
   display: flex;
   align-items: center;
 
@@ -18,20 +18,32 @@ const WrapperTask = styled.div`
   }
 
   input {
-    margin: 3px;
+    margin-left: 10px;
+    margin-right: 5px;
+  }
+
+  .due-date {
+    letter-spacing: -2px;
   }
 `;
 
-function Task() {
+function Task(props) {
+  // console.log('props', props);
+  // console.log('props.task', props.task);
+  // console.log('props.task.text', props.task.text);
+  // console.log(props);
   return (
     // <div className="task">
     <WrapperTask className="task">
-      <DeleteButton />
+      <DeleteButton
+        task={props.task}
+        handleDeleteTask={props.handleDeleteTask}
+      />
       <EditButton />
       {/* <button>Edit</button> */}
-      <div>12-12-12</div>
+      <div className="due-date">12-34-12</div>
       <input type="checkbox" />
-      <div className="task-title">Task title text hereeeeee e ee e e e</div>
+      <div className="task-title">{props.task.text}</div>
     </WrapperTask>
     // </div>
   );

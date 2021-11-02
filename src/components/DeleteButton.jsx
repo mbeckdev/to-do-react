@@ -88,9 +88,12 @@ const WrapperDeleteButton = styled.button`
   }
 `;
 
-function DeleteButton() {
+function DeleteButton(props) {
   return (
-    <WrapperDeleteButton className="delete-button">
+    <WrapperDeleteButton
+      className="delete-button"
+      onClick={() => props.handleDeleteTask(props.task.id)}
+    >
       {/* <button className="delete-button"> */}
       <div className="delete-icon">
         <div className="delete-icon1"></div>
