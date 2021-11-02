@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import uniqid from 'uniqid';
 
 import Task from './components/Task';
+import ManageTaskForm from './components/ManageTaskForm';
 
 let darkTheme = {
   colors: {
@@ -15,6 +16,7 @@ let darkTheme = {
     color3Green: `#b8f2e6`,
     color4LightBlue: `#aed9e0`,
     color5Black: `#1c1d22`,
+    color5BlackLighter1: `#2e3138`,
     // color5Black: `#4b4f5b`,
     // color5Black: `#5e6472`,
     // https://colorhex.net/5e6472 has great shades
@@ -34,7 +36,7 @@ let lightTheme = {
     color3Green: `#11f2e6`,
     color4LightBlue: `#11d9e0`,
     color5Black: `#111122`,
-
+    color5BlackLighter1: `#2e3138`,
     // color5Black: `#4b4f5b`,
     // color5Black: `#5e6472`,
     // https://colorhex.net/5e6472 has great shades
@@ -80,6 +82,7 @@ const WrapperApp = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
   }
 
   main #task-container {
@@ -122,6 +125,7 @@ function App() {
       taskDescription:
         'longer1 description is this part where it shows up when you click on it',
       dueDate: new Date('Dec 30 2000'),
+      completed: false,
     },
     {
       isEditing: false,
@@ -130,6 +134,7 @@ function App() {
       taskDescription:
         'longer2 description is this part where it shows up when you click on it',
       dueDate: new Date('Dec 30 2000'),
+      completed: false,
     },
     {
       isEditing: false,
@@ -138,6 +143,7 @@ function App() {
       taskDescription:
         'longer3 description is this part where it shows up when you click on it',
       dueDate: new Date('Jan 1 2000'),
+      completed: false,
     },
     {
       isEditing: false,
@@ -146,8 +152,11 @@ function App() {
       taskDescription:
         '4 description is this part where it shows up when you click on it',
       dueDate: new Date('Jan 1 2000'),
+      completed: false,
     },
   ]);
+
+  const [manageTaskFormIsHidden, setManageTaskFormIsHidden] = useState(false);
 
   const findIndex = () => {};
 
@@ -161,6 +170,7 @@ function App() {
       taskDescription:
         '4 description is this part where it shows up when you click on it',
       dueDate: new Date('Jan 2 2000'),
+      completed: false,
     };
     let newTasks = [...tasks, newTask];
 
@@ -184,6 +194,7 @@ function App() {
           </header>
           <main>
             <div id="main-width-container">
+              <ManageTaskForm formIsHidden={manageTaskFormIsHidden} />
               <p>main stuff here</p>
               <button onClick={handleAddTask}>ADD TASK</button>
               <ul id="task-container">

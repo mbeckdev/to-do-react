@@ -10,8 +10,6 @@ const WrapperTask = styled.li`
   align-items: flex-start;
 
   button {
-    /* border: 1px solid red; */
-    /* border: none; */
     width: 28px;
     display: flex;
     justify-content: center;
@@ -33,7 +31,7 @@ const WrapperTask = styled.li`
   .due-date {
     letter-spacing: -2px;
 
-    /* don't grow, don't shrink, width */
+    /* don't grow, don't shrink, width stays at this */
     flex: 0 0 auto;
   }
 `;
