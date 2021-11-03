@@ -184,17 +184,52 @@ function App() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log('on submit happening');
+    // console.log('on submit e.target.title.value', e.target.title.value);
+    // console.log('on submit e.target.taskTitle.value', e.target.taskTitle.value);
+
+    let title = e.target.taskTitle.value;
+    let description = e.target.taskDescription.value;
+    let dueDateValue = e.target.taskDueDate.value;
+
+    console.log('e.target.taskDueDate.value = ', e.target.taskDueDate.value);
+    // 2021-11-02
+    // let year = 2021;
+    // let month = 10;
+    // let day = 17;
+
+    let year = Number(dueDateValue.slice(0, 4));
+    let month = Number(dueDateValue.slice(5, 7)) - 1;
+    let day = Number(dueDateValue.slice(-2));
+    console.log('dueDateValue = ', dueDateValue);
+    console.log('dueDateValue.slice(0,2) = ', dueDateValue.slice(0, 2));
+    console.log('year', year);
+    console.log('year month day ', year, ' ', month, ' ', day);
+
+    // let dueDate = new Date(2021, 10, 5); //month 0 = Jan
+    let dueDate = new Date(year, month, day);
+    console.log('new Date(year, month, day);', new Date(year, month, day));
+    console.log('new Date(2021, 10, 5);', new Date(2021, 10, 5));
+
     setManageTaskFormIsHidden(true);
 
     let newTask = {
       isEditing: false,
       id: uniqid(),
-      text: 'Task4 text goes herur haaa',
-      taskDescription:
-        '4 description is this part where it shows up when you click on it',
-      dueDate: new Date('Jan 2 2000'),
+      text: title,
+      taskDescription: description,
+      dueDate: dueDate,
+      // dueDate: new Date('Jan 2 2000'),
       completed: false,
     };
+    // let newTask = {
+    //   isEditing: false,
+    //   id: uniqid(),
+    //   text: 'Task4 text goes herur haarrra',
+    //   taskDescription:
+    //     '4 description is this part where it shows up when you click on it',
+    //   dueDate: new Date('Jan 2 2000'),
+    //   completed: false,
+    // };
     let newTasks = [...tasks, newTask];
 
     setTasks(newTasks);

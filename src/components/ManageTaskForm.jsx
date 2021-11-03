@@ -62,25 +62,20 @@ function ManageTaskForm(props) {
     >
       <h2>Add Task</h2>
       <div className="form-row">
-        <label htmlFor="task-title">Title</label>
-        <input
-          autoFocus
-          name="task-title"
-          type="text"
-          placeholder="your task"
-        />
+        <label htmlFor="taskTitle">Title</label>
+        <input autoFocus name="taskTitle" type="text" placeholder="your task" />
       </div>
       <div className="form-row">
-        <label htmlFor="description">Description</label>
+        <label htmlFor="taskDescription">Description</label>
         <textarea
-          name="description"
+          name="taskDescription"
           type="text"
           placeholder="your task description"
         />
       </div>
       <div className="form-row">
-        <label htmlFor="task-due-date">Due Date</label>
-        <input name="task-due-date" type="date" />
+        <label htmlFor="taskDueDate">Due Date</label>
+        <input name="taskDueDate" type="date" />
       </div>
 
       <button className="regular-button">OK</button>

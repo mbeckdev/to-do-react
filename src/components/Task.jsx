@@ -42,7 +42,7 @@ function Task(props) {
   // console.log(props.task);
   // let
 
-  console.log('props.task.dueDate', props.task.dueDate);
+  // console.log('props.task.dueDate', props.task.dueDate);
   return (
     // <div className="task">
     <WrapperTask className="task">
