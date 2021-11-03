@@ -82,7 +82,7 @@ const WrapperApp = styled.section`
   }
 
   main #main-width-container {
-    max-width: 1000px;
+    max-width: 900px;
     border: 1px solid green;
     display: flex;
     flex-direction: column;
@@ -91,7 +91,8 @@ const WrapperApp = styled.section`
   }
 
   main #task-container {
-    max-width: 500px;
+    /* max-width: 1500px; */
+    min-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -129,33 +130,35 @@ function App() {
   const [tasks, setTasks] = useState([
     {
       isEditing: false,
+      descriptionIsShown: false,
       id: uniqid(),
       text: 'Task1 text goes hereeeeeee alskdjf blah ipsum dur haaa',
       taskDescription:
-        'longer1 description is this part where it shows up when you click on it',
+        'longer1 description description description description description description description description description description description description is this part where it shows up when you click on it',
       dueDate: new Date('Dec 30 2000'),
       completed: false,
     },
     {
       isEditing: false,
+      descriptionIsShown: true,
       id: uniqid(),
       text: 'Task2 text goesum dur haaa',
-      taskDescription:
-        'longer2 description is this part where it shows up when you click on it',
-      dueDate: new Date('Dec 30 2000'),
-      completed: false,
-    },
-    {
-      isEditing: false,
-      id: uniqid(),
-      text: 'Task3 text goes herur haaa',
-      taskDescription:
-        'longer3 description is this part where it shows up when you click on it',
+      taskDescription: 'longer2 descripn you click on it',
       dueDate: new Date('Jan 1 2000'),
       completed: false,
     },
     {
       isEditing: false,
+      descriptionIsShown: false,
+      id: uniqid(),
+      text: 'Task3 text goes herur haaa',
+      taskDescription: 'longer3 descriptionsf sd fws up when you click on it',
+      dueDate: new Date('Jan 1 2000'),
+      completed: false,
+    },
+    {
+      isEditing: false,
+      descriptionIsShown: false,
       id: uniqid(),
       text: 'Task4 text goes herur haaa',
       taskDescription:
@@ -166,8 +169,6 @@ function App() {
   ]);
 
   const [manageTaskFormIsHidden, setManageTaskFormIsHidden] = useState(true);
-
-  // const findIndex = () => {};
 
   const handleAddTask = () => {
     console.log('handling add task');
@@ -184,32 +185,23 @@ function App() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log('on submit happening');
-    // console.log('on submit e.target.title.value', e.target.title.value);
-    // console.log('on submit e.target.taskTitle.value', e.target.taskTitle.value);
 
     let title = e.target.taskTitle.value;
     let description = e.target.taskDescription.value;
     let dueDateValue = e.target.taskDueDate.value;
 
-    console.log('e.target.taskDueDate.value = ', e.target.taskDueDate.value);
+    // console.log('e.target.taskDueDate.value = ', e.target.taskDueDate.value);
     // 2021-11-02
     // let year = 2021;
     // let month = 10;
-    // let day = 17;
+    // let day = 2;
 
     let year = Number(dueDateValue.slice(0, 4));
     let month = Number(dueDateValue.slice(5, 7)) - 1;
     let day = Number(dueDateValue.slice(-2));
-    console.log('dueDateValue = ', dueDateValue);
-    console.log('dueDateValue.slice(0,2) = ', dueDateValue.slice(0, 2));
-    console.log('year', year);
-    console.log('year month day ', year, ' ', month, ' ', day);
 
     // let dueDate = new Date(2021, 10, 5); //month 0 = Jan
     let dueDate = new Date(year, month, day);
-    console.log('new Date(year, month, day);', new Date(year, month, day));
-    console.log('new Date(2021, 10, 5);', new Date(2021, 10, 5));
-
     setManageTaskFormIsHidden(true);
 
     let newTask = {
@@ -221,18 +213,40 @@ function App() {
       // dueDate: new Date('Jan 2 2000'),
       completed: false,
     };
-    // let newTask = {
-    //   isEditing: false,
-    //   id: uniqid(),
-    //   text: 'Task4 text goes herur haarrra',
-    //   taskDescription:
-    //     '4 description is this part where it shows up when you click on it',
-    //   dueDate: new Date('Jan 2 2000'),
-    //   completed: false,
-    // };
-    let newTasks = [...tasks, newTask];
 
+    let newTasks = [...tasks, newTask];
     setTasks(newTasks);
+  };
+
+  const findIndexFromId = (thisId) => {
+    const theTask = tasks.find((aTask) => aTask.id === thisId);
+    const theIndex = tasks.indexOf(theTask);
+
+    return theIndex;
+  };
+
+  const handleTaskTitleClick = (thisId) => {
+    console.log('handleTaskTitleClick');
+    console.log('thisId', thisId);
+    //if description is not shown, show description
+    // else, hide description
+    const theIndex = findIndexFromId(thisId);
+    let newTasks = tasks;
+    newTasks[theIndex].descriptionIsShown =
+      !newTasks[theIndex].descriptionIsShown;
+    setTasks([...newTasks]);
+  };
+
+  const handleTaskDescriptionClick = (thisId) => {
+    console.log('handleDescriptionClick');
+
+    // Hide the description
+    // let theTask = tasks.find((aTask) => aTask.id === thisId);
+    // let theIndex = tasks.indexOf(theTask);
+    const theIndex = findIndexFromId(thisId);
+    let newTasks = tasks;
+    newTasks[theIndex].descriptionIsShown = false;
+    setTasks([...newTasks]);
   };
 
   return (
@@ -259,6 +273,8 @@ function App() {
                     task={task}
                     key={task.id}
                     handleDeleteTask={handleDeleteTask}
+                    handleTaskTitleClick={handleTaskTitleClick}
+                    handleTaskDescriptionClick={handleTaskDescriptionClick}
                   />
                 ))}
               </ul>
