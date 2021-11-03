@@ -82,12 +82,20 @@ const WrapperApp = styled.section`
   }
 
   main #main-width-container {
+    /* min-width: 900px; */
     max-width: 900px;
+    width: 100%;
     border: 1px solid green;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+  }
+
+  @media screen and (min-width: 500px) {
+    main #main-width-container {
+      width: 80%px;
+    }
   }
 
   main #task-container {
@@ -132,7 +140,7 @@ function App() {
       isEditing: false,
       descriptionIsShown: false,
       id: uniqid(),
-      text: 'Task1 text goes hereeeeeee alskdjf blah ipsum dur haaa',
+      title: 'Task1 text goes hereeeeeee alskdjf blah ipsum dur haaa',
       taskDescription:
         'longer1 description description description description description description description description description description description description is this part where it shows up when you click on it',
       dueDate: new Date('Dec 30 2000'),
@@ -142,7 +150,7 @@ function App() {
       isEditing: false,
       descriptionIsShown: true,
       id: uniqid(),
-      text: 'Task2 text goesum dur haaa',
+      title: 'Task2 text goesum dur haaa',
       taskDescription: 'longer2 descripn you click on it',
       dueDate: new Date('Jan 1 2000'),
       completed: false,
@@ -151,7 +159,7 @@ function App() {
       isEditing: false,
       descriptionIsShown: false,
       id: uniqid(),
-      text: 'Task3 text goes herur haaa',
+      title: 'Task3 text goes herur haaa',
       taskDescription: 'longer3 descriptionsf sd fws up when you click on it',
       dueDate: new Date('Jan 1 2000'),
       completed: false,
@@ -160,7 +168,7 @@ function App() {
       isEditing: false,
       descriptionIsShown: false,
       id: uniqid(),
-      text: 'Task4 text goes herur haaa',
+      title: 'Task4 text goes herur haaa',
       taskDescription:
         '4 description is this part where it shows up when you click on it',
       dueDate: new Date('Jan 1 2000'),
@@ -168,9 +176,23 @@ function App() {
     },
   ]);
 
+  const emptyTask = {
+    isEditing: false,
+    descriptionIsShown: false,
+    id: uniqid(),
+    title: '',
+    taskDescription: '',
+    // dueDate: new Date('Jan 1 2000'),
+    dueDate: 0,
+    completed: false,
+  };
+
   const [manageTaskFormIsHidden, setManageTaskFormIsHidden] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [taskToEdit, setTaskToEdit] = useState(emptyTask);
 
   const handleAddTask = () => {
+    setIsEditing(false);
     console.log('handling add task');
     setManageTaskFormIsHidden(false);
   };
@@ -182,11 +204,30 @@ function App() {
     setTasks(newTasks);
   };
 
+  const handleEditButtonClick = (thisId) => {
+    setIsEditing(true);
+
+    console.log('handle edit button click');
+    const theIndex = findIndexFromId(thisId);
+
+    let newTasks = tasks;
+
+    setManageTaskFormIsHidden(false);
+    let newTask = newTasks[theIndex];
+    setTaskToEdit(newTask);
+
+    //put things in form    .value
+
+    // newTasks[theIndex].descriptionIsShown =
+    //   !newTasks[theIndex].descriptionIsShown;
+    // setTasks([...newTasks]);
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log('on submit happening');
 
-    let title = e.target.taskTitle.value;
+    let title = e.target.title.value;
     let description = e.target.taskDescription.value;
     let dueDateValue = e.target.taskDueDate.value;
 
@@ -206,16 +247,34 @@ function App() {
 
     let newTask = {
       isEditing: false,
+      descriptionIsShown: false,
       id: uniqid(),
-      text: title,
+      title: title,
       taskDescription: description,
       dueDate: dueDate,
       // dueDate: new Date('Jan 2 2000'),
       completed: false,
     };
 
-    let newTasks = [...tasks, newTask];
-    setTasks(newTasks);
+    console.log('onsubmit before edit check isEditing', isEditing);
+    if (!isEditing) {
+      // we are adding
+      let newTasks = [...tasks, newTask];
+      setTasks(newTasks);
+    } else {
+      // we are editing
+      let newTasks = tasks;
+      // replace a task
+      // which index?
+      let theIndex = findIndexFromId(taskToEdit.id);
+      newTask = taskToEdit;
+      newTasks[theIndex] = newTask;
+      console.log('new task after editing = newTask = ', newTask);
+      setTasks([...newTasks]);
+    }
+
+    // Clear taskToEdit so it's empty next time we open this form
+    setTaskToEdit(emptyTask);
   };
 
   const findIndexFromId = (thisId) => {
@@ -249,6 +308,22 @@ function App() {
     setTasks([...newTasks]);
   };
 
+  // *** onChange inputs ***
+  const handleOnChangeTaskInput = (e) => {
+    // let changedTaskToEdit = taskToEdit;
+    // changedTaskToEdit.title = e.target.value;
+    // setTaskToEdit(changedTaskToEdit);
+
+    let prevTaskToEdit = taskToEdit;
+    setTaskToEdit({
+      ...prevTaskToEdit,
+      [e.target.name]: e.target.value,
+    });
+
+    // e.target.name = title,
+    // task.title
+  };
+
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>
       {/* <ThemeProvider theme={darkTheme}> */}
@@ -260,7 +335,12 @@ function App() {
           <main>
             <div id="main-width-container">
               {!manageTaskFormIsHidden && (
-                <ManageTaskForm handleOnSubmit={handleOnSubmit} />
+                <ManageTaskForm
+                  handleOnSubmit={handleOnSubmit}
+                  isEditing={isEditing}
+                  taskToEdit={taskToEdit}
+                  handleOnChangeTaskInput={handleOnChangeTaskInput}
+                />
               )}
 
               <p>main stuff here</p>
@@ -275,6 +355,7 @@ function App() {
                     handleDeleteTask={handleDeleteTask}
                     handleTaskTitleClick={handleTaskTitleClick}
                     handleTaskDescriptionClick={handleTaskDescriptionClick}
+                    handleEditButtonClick={handleEditButtonClick}
                   />
                 ))}
               </ul>

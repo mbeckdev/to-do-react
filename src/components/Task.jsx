@@ -70,8 +70,11 @@ function Task(props) {
 
   // console.log('props.task.dueDate', props.task.dueDate);
   // console.log('props.task.description', props.task.description);
-  console.log('props.task', props.task);
+  // console.log('props.task', props.task);
   // console.log('props.task.descriptionIsShown', props.task.descriptionIsShown);
+
+  console.log('props.task.descriptionIsShown', props.task.descriptionIsShown);
+
   return (
     // <div className="task">
     <WrapperTask className="task">
@@ -80,7 +83,10 @@ function Task(props) {
           task={props.task}
           handleDeleteTask={props.handleDeleteTask}
         />
-        <EditButton />
+        <EditButton
+          task={props.task}
+          handleEditButtonClick={props.handleEditButtonClick}
+        />
         <div className="due-date">
           {getFormattedDueDate(props.task.dueDate)}
         </div>
@@ -90,7 +96,7 @@ function Task(props) {
           className="task-title"
           onClick={() => props.handleTaskTitleClick(props.task.id)}
         >
-          {props.task.text}
+          {props.task.title}
         </div>
       </div>
       {props.task.descriptionIsShown && (

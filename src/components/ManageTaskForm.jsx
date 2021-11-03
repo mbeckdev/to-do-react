@@ -16,7 +16,7 @@ const WrapperManageTaskForm = styled.form`
   /* color: var(--main-text-color); */
 
   .hidden {
-    visible: hidden;
+    visibility: hidden;
   }
 
   h2 {
@@ -54,6 +54,7 @@ const WrapperManageTaskForm = styled.form`
 `;
 
 function ManageTaskForm(props) {
+  // console.log('managetaskform props.taskToEdit', props.taskToEdit);
   return (
     <WrapperManageTaskForm
       id="manage-task-form"
@@ -62,8 +63,25 @@ function ManageTaskForm(props) {
     >
       <h2>Add Task</h2>
       <div className="form-row">
-        <label htmlFor="taskTitle">Title</label>
-        <input autoFocus name="taskTitle" type="text" placeholder="your task" />
+        <label htmlFor="title">Title</label>
+        {/* {!props.isEditing ? (
+          <input autoFocus name="title" type="text" placeholder="your task" />
+        ) : (
+          <input
+            autoFocus
+            name="title"
+            type="text"
+            value={props.taskToEdit.title}
+            onChange={props.handleOnChangeTaskInput}
+          />
+        )} */}
+        <input
+          autoFocus
+          name="title"
+          type="text"
+          value={props.taskToEdit.title}
+          onChange={props.handleOnChangeTaskInput}
+        />
       </div>
       <div className="form-row">
         <label htmlFor="taskDescription">Description</label>
@@ -71,11 +89,18 @@ function ManageTaskForm(props) {
           name="taskDescription"
           type="text"
           placeholder="your task description"
+          value={props.taskToEdit.taskDescription}
+          onChange={props.handleOnChangeTaskInput}
         />
       </div>
       <div className="form-row">
         <label htmlFor="taskDueDate">Due Date</label>
-        <input name="taskDueDate" type="date" />
+        <input
+          name="taskDueDate"
+          type="date"
+          value={props.taskToEdit.dueDate}
+          onChange={props.handleOnChangeTaskInput}
+        />
       </div>
 
       <button className="regular-button">OK</button>

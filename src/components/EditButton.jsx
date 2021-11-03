@@ -54,14 +54,15 @@ const WrapperEditButton = styled.button`
   }
 `;
 
-function EditButton() {
+function EditButton(props) {
   return (
-    <WrapperEditButton className="edit-button">
-      {/* <button className="edit-button"> */}
+    <WrapperEditButton
+      className="edit-button"
+      onClick={() => props.handleEditButtonClick(props.task.id)}
+    >
       <div className="edit-icon">
         <div className="edit-inner"></div>
       </div>
-      {/* </button> */}
     </WrapperEditButton>
   );
 }
