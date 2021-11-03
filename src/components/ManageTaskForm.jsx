@@ -15,6 +15,10 @@ const WrapperManageTaskForm = styled.form`
   background-color: ${(props) => props.theme.colors.color5BlackLighter1};
   /* color: var(--main-text-color); */
 
+  .hidden {
+    visible: hidden;
+  }
+
   h2 {
     color: ${(props) => props.theme.colors.color4LightBlue};
   }
@@ -50,9 +54,12 @@ const WrapperManageTaskForm = styled.form`
 `;
 
 function ManageTaskForm(props) {
-  let formIsHidden = props.formIsHidden;
   return (
-    <WrapperManageTaskForm id="manage-task-form">
+    <WrapperManageTaskForm
+      id="manage-task-form"
+      // className={hiddenOrNot}
+      onSubmit={props.handleOnSubmit}
+    >
       <h2>Add Task</h2>
       <div className="form-row">
         <label htmlFor="task-title">Title</label>

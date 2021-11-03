@@ -9,14 +9,6 @@ const WrapperTask = styled.li`
   display: flex;
   align-items: flex-start;
 
-  button {
-    /* width: 28px; */
-    /* display: flex;
-    justify-content: center;
-    margin: 0 1px;
-    background-color: transparent; */
-  }
-
   .task-title {
     text-align: left;
     margin-left: 10px;

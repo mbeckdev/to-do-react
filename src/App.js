@@ -117,6 +117,10 @@ const WrapperApp = styled.section`
     width: 100%;
     bottom: 0;
   }
+
+  /* .hidden {
+    visibility: hidden;
+  } */
 `;
 
 function App() {
@@ -161,12 +165,26 @@ function App() {
     },
   ]);
 
-  const [manageTaskFormIsHidden, setManageTaskFormIsHidden] = useState(false);
+  const [manageTaskFormIsHidden, setManageTaskFormIsHidden] = useState(true);
 
-  const findIndex = () => {};
+  // const findIndex = () => {};
 
   const handleAddTask = () => {
     console.log('handling add task');
+    setManageTaskFormIsHidden(false);
+  };
+
+  const handleDeleteTask = (thisId) => {
+    console.log('handling delete task', thisId);
+
+    let newTasks = tasks.filter((item) => item.id !== thisId);
+    setTasks(newTasks);
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    console.log('on submit happening');
+    setManageTaskFormIsHidden(true);
 
     let newTask = {
       isEditing: false,
@@ -182,13 +200,6 @@ function App() {
     setTasks(newTasks);
   };
 
-  const handleDeleteTask = (thisId) => {
-    console.log('handling delete task', thisId);
-
-    let newTasks = tasks.filter((item) => item.id !== thisId);
-    setTasks(newTasks);
-  };
-
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>
       {/* <ThemeProvider theme={darkTheme}> */}
@@ -199,7 +210,10 @@ function App() {
           </header>
           <main>
             <div id="main-width-container">
-              <ManageTaskForm formIsHidden={manageTaskFormIsHidden} />
+              {!manageTaskFormIsHidden && (
+                <ManageTaskForm handleOnSubmit={handleOnSubmit} />
+              )}
+
               <p>main stuff here</p>
               <button className="regular-button" onClick={handleAddTask}>
                 ADD TASK
