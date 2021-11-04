@@ -13,7 +13,7 @@ const WrapperManageTaskForm = styled.form`
   margin-right: auto;
   right: 0;
   background-color: ${(props) => props.theme.colors.color5BlackLighter1};
-  /* color: var(--main-text-color); */
+  /* font-weight: 700; */
 
   .hidden {
     visibility: hidden;
@@ -38,7 +38,8 @@ const WrapperManageTaskForm = styled.form`
 
     input,
     textarea {
-      font-family: sans-serif;
+      font-family: inherit;
+      font-weight: inherit;
       padding: 2px 5px;
       width: 100%;
       background-color: ${(props) => props.theme.colors.color5Black};

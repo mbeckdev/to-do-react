@@ -29,11 +29,13 @@ const WrapperTask = styled.li`
   input {
     margin-left: 10px;
     margin-right: 5px;
-    margin-top: 5px;
+    margin-top: 4px;
   }
+
   input[type='checkbox'] {
     margin-right: 0;
   }
+
   .due-date {
     letter-spacing: -2px;
 

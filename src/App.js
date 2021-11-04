@@ -51,6 +51,9 @@ const WrapperApp = styled.section`
   background: ${(props) => props.theme.colors.color5Black};
   color: ${(props) => props.theme.colors.textColor1};
 
+  font-weight: 700;
+  font-family: 'Lato', sans-serif;
+
   .app {
     text-align: center;
     min-height: 100vh;
@@ -67,7 +70,10 @@ const WrapperApp = styled.section`
   .regular-button {
     border-radius: 5px;
     padding: 3px 15px;
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
     background-color: ${(props) => props.theme.colors.color3Green};
   }
   header {
@@ -310,19 +316,15 @@ function App() {
 
   // *** onChange inputs ***
   const handleOnChangeTaskInput = (e) => {
-    // let changedTaskToEdit = taskToEdit;
-    // changedTaskToEdit.title = e.target.value;
-    // setTaskToEdit(changedTaskToEdit);
-
     let prevTaskToEdit = taskToEdit;
     setTaskToEdit({
       ...prevTaskToEdit,
       [e.target.name]: e.target.value,
     });
-
-    // e.target.name = title,
-    // task.title
   };
+
+  // e.target.name = title,
+  // task.title = e.target.value
 
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>
@@ -330,7 +332,7 @@ function App() {
       <WrapperApp>
         <div className="app">
           <header className="app-header">
-            <p>headdderrrrrr</p>
+            <h1>TO DO LIST</h1>
           </header>
           <main>
             <div id="main-width-container">
