@@ -6,6 +6,7 @@ import uniqid from 'uniqid';
 
 import Task from './components/Task';
 import ManageTaskForm from './components/ManageTaskForm';
+// import { buildQueries } from '@testing-library/dom';
 
 let darkTheme = {
   colors: {
@@ -50,7 +51,6 @@ lightTheme.colors.iconColorSecondary = lightTheme.colors.color5Black;
 const WrapperApp = styled.section`
   background: ${(props) => props.theme.colors.color5Black};
   color: ${(props) => props.theme.colors.textColor1};
-
   font-weight: 700;
   font-family: 'Lato', sans-serif;
 
@@ -67,6 +67,7 @@ const WrapperApp = styled.section`
     justify-content: center;
     font-size: calc(10px + 2vmin);
   }
+
   .regular-button {
     border-radius: 5px;
     padding: 3px 15px;
@@ -76,6 +77,7 @@ const WrapperApp = styled.section`
     font-size: inherit;
     background-color: ${(props) => props.theme.colors.color3Green};
   }
+
   header {
     background-color: #282c84;
     /* height: 100px; */
@@ -85,6 +87,7 @@ const WrapperApp = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 0.5rem;
   }
 
   main #main-width-container {
@@ -133,9 +136,27 @@ const WrapperApp = styled.section`
     bottom: 0;
   }
 
-  /* .hidden {
-    visibility: hidden;
-  } */
+  #top-labels-row {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: ${(props) => props.theme.colors.color3Green};
+    background-color: ${(props) => props.theme.colors.color5BlackLighter1};
+    #due-date-label {
+      width: 110px;
+      text-align: end;
+    }
+
+    #task-label {
+      flex: 1 1 auto;
+    }
+
+    #due-date-label:active,
+    #task-label:active {
+      color: ${(props) => props.theme.colors.color5Black};
+    }
+  }
 `;
 
 function App() {
@@ -158,7 +179,7 @@ function App() {
       id: uniqid(),
       title: 'Task2 text goesum dur haaa',
       taskDescription: 'longer2 descripn you click on it',
-      dueDate: new Date('Jan 1 2000'),
+      dueDate: new Date('Feb 1 2001'),
       completed: false,
     },
     {
@@ -167,7 +188,7 @@ function App() {
       id: uniqid(),
       title: 'Task3 text goes herur haaa',
       taskDescription: 'longer3 descriptionsf sd fws up when you click on it',
-      dueDate: new Date('Jan 1 2000'),
+      dueDate: new Date('Mar 1 2003'),
       completed: false,
     },
     {
@@ -177,7 +198,7 @@ function App() {
       title: 'Task4 text goes herur haaa',
       taskDescription:
         '4 description is this part where it shows up when you click on it',
-      dueDate: new Date('Jan 1 2000'),
+      dueDate: new Date('Nov 1 1999'),
       completed: false,
     },
   ]);
@@ -326,6 +347,39 @@ function App() {
   // e.target.name = title,
   // task.title = e.target.value
 
+  const handleCategoryLabelClick = (e, category) => {
+    // category can be dueDate or something else later like
+    console.log('due date label clicked');
+
+    // pseudo code:
+    // reorder tasks
+    // get a date
+    // sort where 0 is the earliest date, and the last item in the array... is the latest date
+    // setTasks
+
+    let newTasks = tasks;
+    let swapped = true;
+
+    for (let i = 0; i < tasks.length - 1; i++) {
+      swapped = false;
+      for (let j = 0; j < tasks.length - 1; j++) {
+        if (newTasks[j][category] > newTasks[j + 1][category]) {
+          // swap the entire tasks
+          let tempTask = newTasks[j];
+          newTasks[j] = newTasks[j + 1];
+          newTasks[j + 1] = tempTask;
+          swapped = true;
+        }
+      }
+
+      if (!swapped) {
+        break;
+      }
+    }
+
+    setTasks([...newTasks]);
+  };
+
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>
       {/* <ThemeProvider theme={darkTheme}> */}
@@ -345,10 +399,20 @@ function App() {
                 />
               )}
 
-              <p>main stuff here</p>
               <button className="regular-button" onClick={handleAddTask}>
                 ADD TASK
               </button>
+
+              <div id="top-labels-row">
+                <div
+                  id="due-date-label"
+                  onClick={(e) => handleCategoryLabelClick(e, 'dueDate')}
+                >
+                  Due Date
+                </div>
+                <div id="task-label">Task</div>
+              </div>
+
               <ul id="task-container">
                 {tasks.map((task) => (
                   <Task
