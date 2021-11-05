@@ -75,7 +75,7 @@ function Task(props) {
   // console.log('props.task', props.task);
   // console.log('props.task.descriptionIsShown', props.task.descriptionIsShown);
 
-  console.log('props.task.descriptionIsShown', props.task.descriptionIsShown);
+  // console.log('props.task.descriptionIsShown', props.task.descriptionIsShown);
 
   return (
     // <div className="task">

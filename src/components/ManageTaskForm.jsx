@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { format, isValid, parseISO } from 'date-fns';
 
 const WrapperManageTaskForm = styled.form`
   box-shadow: 0 0 10px black;
@@ -56,6 +57,28 @@ const WrapperManageTaskForm = styled.form`
 
 function ManageTaskForm(props) {
   // console.log('managetaskform props.taskToEdit', props.taskToEdit);
+  console.log('props from managetaskform', props);
+  console.log('props.taskToEdit', props.taskToEdit);
+  console.log('props.taskToEdit.dueDate', props.taskToEdit.dueDate);
+
+  // let shortVersionOfDate = format(
+  //   parseISO(props.taskToEdit.dueDate),
+  //   'yyyy-MM-dd'
+  // );
+  let dur = props.taskToEdit.dueDate;
+  console.log('dur', dur);
+  // let parsedDur = parse(dur);
+  // let shortVersionOfDate = toString(
+  //   format(props.taskToEdit.dueDate, 'yyyy-MM-dd')
+  // );
+  let shortVersionOfDate = format(props.taskToEdit.dueDate, 'yyyy-MM-dd');
+  console.log(
+    'isValid(parseISO(shortVersionOfDate))',
+    isValid(parseISO(shortVersionOfDate))
+  );
+  console.log('shortVersionOfDate.type', shortVersionOfDate.type);
+  console.log('shortVersionOfDate', shortVersionOfDate);
+
   return (
     <WrapperManageTaskForm
       id="manage-task-form"
@@ -97,9 +120,11 @@ function ManageTaskForm(props) {
       <div className="form-row">
         <label htmlFor="taskDueDate">Due Date</label>
         <input
-          name="taskDueDate"
+          name="dueDate"
           type="date"
-          value={props.taskToEdit.dueDate}
+          // value={props.taskToEdit.dueDate}
+          // value="2022-08-08"
+          value={shortVersionOfDate}
           onChange={props.handleOnChangeTaskInput}
         />
       </div>

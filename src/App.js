@@ -3,6 +3,7 @@ import TestComponent from './components/TestComponent';
 import styled, { ThemeProvider } from 'styled-components';
 import React, { useState } from 'react';
 import uniqid from 'uniqid';
+import { format, parseISO } from 'date-fns';
 
 import Task from './components/Task';
 import ManageTaskForm from './components/ManageTaskForm';
@@ -234,14 +235,19 @@ function App() {
   const handleEditButtonClick = (thisId) => {
     setIsEditing(true);
 
-    console.log('handle edit button click');
+    console.log('33333333333333333handle edit button click');
     const theIndex = findIndexFromId(thisId);
 
     let newTasks = tasks;
 
     setManageTaskFormIsHidden(false);
     let newTask = newTasks[theIndex];
+
+    // newTask.dueDate = format(parseISO(newTask.dueDate), 'yyyy-MM-dd');
+    console.log('newTask.dueDate', newTask.dueDate);
     setTaskToEdit(newTask);
+    console.log('newTask', newTask);
+    console.log('taskToEdit3333', taskToEdit);
 
     //put things in form    .value
 
@@ -250,13 +256,11 @@ function App() {
     // setTasks([...newTasks]);
   };
 
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    console.log('on submit happening');
-
-    let title = e.target.title.value;
-    let description = e.target.taskDescription.value;
-    let dueDateValue = e.target.taskDueDate.value;
+  const _getLongDate = (dateAsAShortString) => {
+    // console.log('e', e);
+    // console.log('22222222222 dueDateValue from target', dueDateValue);
+    // console.log('222222 e.target.dueDate', e.target.dueDate);
+    // console.log('222222 e.target', e.target);
 
     // console.log('e.target.taskDueDate.value = ', e.target.taskDueDate.value);
     // 2021-11-02
@@ -264,12 +268,26 @@ function App() {
     // let month = 10;
     // let day = 2;
 
-    let year = Number(dueDateValue.slice(0, 4));
-    let month = Number(dueDateValue.slice(5, 7)) - 1;
-    let day = Number(dueDateValue.slice(-2));
+    let year = Number(dateAsAShortString.slice(0, 4));
+    let month = Number(dateAsAShortString.slice(5, 7)) - 1;
+    let day = Number(dateAsAShortString.slice(-2));
 
     // let dueDate = new Date(2021, 10, 5); //month 0 = Jan
-    let dueDate = new Date(year, month, day);
+    let newDate = new Date(year, month, day);
+    return newDate;
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    console.log('on submit happening');
+
+    let title = e.target.title.value;
+    let description = e.target.taskDescription.value;
+    let dueDateValue = e.target.dueDate.value;
+
+    let dueDate = _getLongDate(dueDateValue);
+
+    console.log('dueDate from value as new Date(...)', dueDate);
     setManageTaskFormIsHidden(true);
 
     let newTask = {
@@ -293,6 +311,10 @@ function App() {
       let newTasks = tasks;
       // replace a task
       // which index?
+      console.log(
+        "we're about to submit on an edit screen, taskToEdit starts as ",
+        taskToEdit
+      );
       let theIndex = findIndexFromId(taskToEdit.id);
       newTask = taskToEdit;
       newTasks[theIndex] = newTask;
@@ -338,10 +360,31 @@ function App() {
   // *** onChange inputs ***
   const handleOnChangeTaskInput = (e) => {
     let prevTaskToEdit = taskToEdit;
-    setTaskToEdit({
-      ...prevTaskToEdit,
-      [e.target.name]: e.target.value,
-    });
+
+    if (e.target.name === 'dueDate') {
+      console.log('we tried to change dueDate');
+      console.log(
+        "format(dueDate, 'MM-dd-yy');",
+        format(parseISO(e.target.value), 'MM-dd-yy')
+      );
+      let longDate = _getLongDate(e.target.value);
+
+      // setTaskToEdit({
+      //   ...prevTaskToEdit,
+      //   [e.target.name]: longDate,
+      // });
+    } else {
+      setTaskToEdit({
+        ...prevTaskToEdit,
+        [e.target.name]: e.target.value,
+      });
+
+      console.log('handleOnchangeTaskInput');
+      console.log('e.target.name', e.target.name);
+      console.log('e.target.value', e.target.value);
+    }
+
+    console.log('taskToEdit', taskToEdit);
   };
 
   // e.target.name = title,
