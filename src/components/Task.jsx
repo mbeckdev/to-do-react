@@ -93,7 +93,19 @@ function Task(props) {
           {getFormattedDueDate(props.task.dueDate)}
         </div>
 
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          onClick={() => {
+            props.handleCheckboxClick(props.task.id);
+          }}
+          // {true && checked }
+          // checked
+
+          // the !! is necessary here to get rid of the . It convers null or undefined to false
+          //   and leaves true alone. - So React will register the checked property
+          // with a value of flase and start off with a controlled form component.
+          defaultChecked={props.task.completed}
+        />
         <div
           className="task-title"
           onClick={() => props.handleTaskTitleClick(props.task.id)}

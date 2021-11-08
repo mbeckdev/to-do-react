@@ -181,7 +181,7 @@ function App() {
       title: 'Task2 text goesum dur haaa',
       taskDescription: 'longer2 descripn you click on it',
       dueDate: new Date('Feb 1 2001'),
-      completed: false,
+      completed: true,
     },
     {
       isEditing: false,
@@ -423,6 +423,25 @@ function App() {
     setTasks([...newTasks]);
   };
 
+  const handleCheckboxClick = (taskId) => {
+    console.log('checkbox clicked');
+    console.log('checkbox clicked taskId = ', taskId);
+
+    // find the task
+    // change the task
+    // set the tasks
+    let theIndex = findIndexFromId(taskId);
+    let newTasks = tasks;
+    newTasks[theIndex].completed = !newTasks[theIndex].completed;
+    setTasks([...newTasks]);
+
+    //what is this task in tasks list?
+    //is the task.completed true? if so, make it false
+  };
+
+  const handleConsoleLogTasks = () => {
+    console.log(tasks);
+  };
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>
       {/* <ThemeProvider theme={darkTheme}> */}
@@ -446,6 +465,13 @@ function App() {
                 ADD TASK
               </button>
 
+              <button
+                className="regular-button"
+                onClick={handleConsoleLogTasks}
+              >
+                console.log all tasks - deletemeeee
+              </button>
+
               <div id="top-labels-row">
                 <div
                   id="due-date-label"
@@ -465,6 +491,7 @@ function App() {
                     handleTaskTitleClick={handleTaskTitleClick}
                     handleTaskDescriptionClick={handleTaskDescriptionClick}
                     handleEditButtonClick={handleEditButtonClick}
+                    handleCheckboxClick={handleCheckboxClick}
                   />
                 ))}
               </ul>
