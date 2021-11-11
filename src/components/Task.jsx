@@ -58,7 +58,10 @@ const WrapperTask = styled.li`
 `;
 
 const getFormattedDueDate = (dueDate) => {
-  if (isNaN(dueDate.getTime())) {
+  console.log('.............dueDate from getFormattedDueDate ', dueDate);
+
+  if (dueDate === '') {
+    // if (isNaN(dueDate.getTime())) {
     // Date was not entered:
     return '';
   } else {
@@ -76,7 +79,7 @@ function Task(props) {
   // console.log('props.task.descriptionIsShown', props.task.descriptionIsShown);
 
   // console.log('props.task.descriptionIsShown', props.task.descriptionIsShown);
-
+  console.log('this task duedate = ', props.task.dueDate);
   return (
     // <div className="task">
     <WrapperTask className="task">

@@ -211,7 +211,8 @@ function App() {
     title: '',
     taskDescription: '',
     // dueDate: new Date('Jan 1 2000'),
-    dueDate: 0,
+    // dueDate: 0,
+    // dueDate: '',
     completed: false,
   };
 
@@ -237,9 +238,7 @@ function App() {
 
     console.log('33333333333333333handle edit button click');
     const theIndex = findIndexFromId(thisId);
-
     let newTasks = tasks;
-
     setManageTaskFormIsHidden(false);
     let newTask = newTasks[theIndex];
 
@@ -285,7 +284,13 @@ function App() {
     let description = e.target.taskDescription.value;
     let dueDateValue = e.target.dueDate.value;
 
-    let dueDate = _getLongDate(dueDateValue);
+    let dueDate;
+    if (dueDateValue) {
+      dueDate = _getLongDate(dueDateValue);
+    } else {
+      console.log('***********duedate exists, but is = "" test', dueDate);
+      dueDate = '';
+    }
 
     console.log('dueDate from value as new Date(...)', dueDate);
     setManageTaskFormIsHidden(true);
@@ -301,7 +306,7 @@ function App() {
       completed: false,
     };
 
-    console.log('onsubmit before edit check isEditing', isEditing);
+    console.log('-----onsubmit before edit check isEditing', isEditing);
     if (!isEditing) {
       // we are adding
       let newTasks = [...tasks, newTask];
@@ -315,8 +320,16 @@ function App() {
         "we're about to submit on an edit screen, taskToEdit starts as ",
         taskToEdit
       );
+
+      //newTask should be used, not tasktoEdit
+
       let theIndex = findIndexFromId(taskToEdit.id);
-      newTask = taskToEdit;
+      // newTask = taskToEdit;
+
+      newTask.id = taskToEdit.id;
+      newTask.descriptionIsShown = taskToEdit.descriptionIsShown;
+      newTask.completed = taskToEdit.completed;
+
       newTasks[theIndex] = newTask;
       console.log('new task after editing = newTask = ', newTask);
       setTasks([...newTasks]);
@@ -359,20 +372,11 @@ function App() {
 
   // *** onChange inputs ***
   const handleOnChangeTaskInput = (e) => {
+    console.log('--handleOnChangeTaskInput--');
     let prevTaskToEdit = taskToEdit;
 
     if (e.target.name === 'dueDate') {
-      console.log('we tried to change dueDate');
-      console.log(
-        "format(dueDate, 'MM-dd-yy');",
-        format(parseISO(e.target.value), 'MM-dd-yy')
-      );
-      let longDate = _getLongDate(e.target.value);
-
-      // setTaskToEdit({
-      //   ...prevTaskToEdit,
-      //   [e.target.name]: longDate,
-      // });
+      // do nothing - we'll set the date onSubmit instead of onChange - see handleOnSubmit
     } else {
       setTaskToEdit({
         ...prevTaskToEdit,
@@ -441,6 +445,7 @@ function App() {
 
   const handleConsoleLogTasks = () => {
     console.log(tasks);
+    console.log('taskToEdit', taskToEdit);
   };
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>

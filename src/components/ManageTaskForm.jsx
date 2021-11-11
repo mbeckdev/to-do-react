@@ -56,7 +56,8 @@ const WrapperManageTaskForm = styled.form`
 `;
 
 function ManageTaskForm(props) {
-  // console.log('managetaskform props.taskToEdit', props.taskToEdit);
+  console.log('--managetaskform props.taskToEdit', props.taskToEdit);
+
   console.log('props from managetaskform', props);
   console.log('props.taskToEdit', props.taskToEdit);
   console.log('props.taskToEdit.dueDate', props.taskToEdit.dueDate);
@@ -71,13 +72,30 @@ function ManageTaskForm(props) {
   // let shortVersionOfDate = toString(
   //   format(props.taskToEdit.dueDate, 'yyyy-MM-dd')
   // );
-  let shortVersionOfDate = format(props.taskToEdit.dueDate, 'yyyy-MM-dd');
+  // let shortVersionOfDate = toString(
+  //   format(props.taskToEdit.dueDate, 'yyyy-MM-dd')
+  // );
+  let shortVersionOfDate;
+  if (props.taskToEdit.dueDate) {
+    shortVersionOfDate = format(props.taskToEdit.dueDate, 'yyyy-MM-dd');
+  } else {
+    shortVersionOfDate = '';
+  }
+  // let shortVersionOfDate = '';  // to show no date
+
   console.log(
     'isValid(parseISO(shortVersionOfDate))',
     isValid(parseISO(shortVersionOfDate))
   );
   console.log('shortVersionOfDate.type', shortVersionOfDate.type);
-  console.log('shortVersionOfDate', shortVersionOfDate);
+  console.log('22222222222222shortVersionOfDate', shortVersionOfDate);
+
+  // let x = 4;
+  // function bar() {
+  //   console.log(x);
+  //   debugger;
+  // }
+  // bar();
 
   return (
     <WrapperManageTaskForm
@@ -118,14 +136,16 @@ function ManageTaskForm(props) {
         />
       </div>
       <div className="form-row">
-        <label htmlFor="taskDueDate">Due Date</label>
+        <label htmlFor="dueDate">Due Date</label>
         <input
           name="dueDate"
           type="date"
           // value={props.taskToEdit.dueDate}
           // value="2022-08-08"
-          value={shortVersionOfDate}
-          onChange={props.handleOnChangeTaskInput}
+          // value={shortVersionOfDate}
+          // defaultValue="2022-08-08"
+          defaultValue={shortVersionOfDate}
+          // onChange={props.handleOnChangeTaskInput}
         />
       </div>
 
