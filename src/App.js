@@ -5,14 +5,16 @@ import React, { useState } from 'react';
 import uniqid from 'uniqid';
 import { format, parseISO } from 'date-fns';
 
+// React components
 import Task from './components/Task';
 import ManageTaskForm from './components/ManageTaskForm';
 import ProjectMenu from './components/ProjectMenu';
+import Hamburger from './Hamburger';
 
 // Styled components and colors imports
 import { darkTheme, lightTheme } from './colors';
 
-import WrapperApp from './WrapperApp.js';
+import WrapperApp from './styles/WrapperApp';
 
 function App() {
   let useLightTheme = false;
@@ -301,14 +303,16 @@ function App() {
     console.log(tasks);
     console.log('taskToEdit', taskToEdit);
   };
+
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>
-      {/* <ThemeProvider theme={darkTheme}> */}
       <WrapperApp>
         <div className="app">
           <header className="app-header">
             <h1>TO DO LIST</h1>
+            <Hamburger />
           </header>
+
           <main>
             <div id="main-width-container">
               {!manageTaskFormIsHidden && (
@@ -356,6 +360,7 @@ function App() {
               </ul>
 
               <TestComponent />
+              <ProjectMenu />
               <div id="extra-space"></div>
             </div>
           </main>
