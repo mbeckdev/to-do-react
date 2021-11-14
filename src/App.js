@@ -304,17 +304,27 @@ function App() {
     console.log('taskToEdit', taskToEdit);
   };
 
+  const [showMobileMenu, setShowMobileMenu] = useState(true);
+
+  const handleHamburgerClick = () => {
+    console.log('hamburger click showmobilemenu=', showMobileMenu);
+    setShowMobileMenu((prev) => !prev);
+    //Show Project menu on top of screen for mobile view
+  };
+
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>
       <WrapperApp>
         <div className="app">
           <header className="app-header">
             <h1>TO DO LIST</h1>
-            <Hamburger />
+            <Hamburger handleHamburgerClick={handleHamburgerClick} />
           </header>
 
           <main>
             <div id="main-width-container">
+              {showMobileMenu && <ProjectMenu />}
+
               {!manageTaskFormIsHidden && (
                 <ManageTaskForm
                   handleOnSubmit={handleOnSubmit}

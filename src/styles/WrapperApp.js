@@ -14,6 +14,7 @@ const WrapperApp = styled.section`
   }
 
   .app-header {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,6 +34,7 @@ const WrapperApp = styled.section`
 
   header {
     background-color: #282c84;
+    background-color: ${(props) => props.theme.colors.color5BlackLighter1};
     /* height: 100px; */
   }
 
