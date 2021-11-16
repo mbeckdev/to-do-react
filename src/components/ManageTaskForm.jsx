@@ -148,6 +148,16 @@ function ManageTaskForm(props) {
           // onChange={props.handleOnChangeTaskInput}
         />
       </div>
+      <div className="form-row">
+        <label htmlFor="project">Project</label>
+        <input
+          name="project"
+          type="search"
+          list="mylist"
+          value={props.taskToEdit.project}
+          onChange={props.handleOnChangeTaskInput}
+        />
+      </div>
 
       <button className="regular-button">OK</button>
     </WrapperManageTaskForm>

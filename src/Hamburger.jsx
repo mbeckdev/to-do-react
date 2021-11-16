@@ -52,9 +52,9 @@ const WrapperHamburger = styled.section`
 function Hamburger(props) {
   return (
     <WrapperHamburger id="hamburger" onClick={props.handleHamburgerClick}>
-      <div class="hamburger-line"></div>
-      <div class="hamburger-line"></div>
-      <div class="hamburger-line"></div>
+      <div className="hamburger-line"></div>
+      <div className="hamburger-line"></div>
+      <div className="hamburger-line"></div>
     </WrapperHamburger>
   );
 }

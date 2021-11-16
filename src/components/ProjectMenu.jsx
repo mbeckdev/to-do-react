@@ -35,6 +35,9 @@ const WrapperProjectMenu = styled.div`
   }
   .sortable {
     padding: 0 5px;
+    border: 1px solid green;
+    cursor: pointer;
+    margin: 2px;
   }
   .sortable:last-of-type {
     padding-bottom: 5px;
@@ -49,12 +52,12 @@ const WrapperProjectMenu = styled.div`
   }
 `;
 
-function ProjectMenu(props) {
+function ProjectMenu({ handleProjectClick, showMobileMenu }) {
   return (
     <WrapperProjectMenu
       id="project-menu"
       // className="menu-hidden"
-      className={props.showMobileMenu && 'menu-hidden'}
+      className={showMobileMenu && 'menu-hidden'}
     >
       {/* <div className={props.showMobileMenu && 'menu-hidden'}> */}
       <h2 className="menu-header">Projects</h2>
@@ -62,17 +65,31 @@ function ProjectMenu(props) {
 
       <h3 className="menu-header">By Date</h3>
       <ul>
-        <li className="sortable">Today</li>
-        <li className="sortable">Week</li>
-        <li className="sortable">Month</li>
+        <li className="sortable" onClick={handleProjectClick}>
+          Today
+        </li>
+        <li className="sortable" onClick={handleProjectClick}>
+          Week
+        </li>
+        <li className="sortable" onClick={handleProjectClick}>
+          Month
+        </li>
       </ul>
 
       <h3 className="menu-header">Projects</h3>
       <ul>
-        <li className="sortable">Apples</li>
-        <li className="sortable">Zebras</li>
-        <li className="sortable">Carrots</li>
-        <li className="sortable">Bananas</li>
+        <li className="sortable" onClick={handleProjectClick}>
+          Apples
+        </li>
+        <li className="sortable" onClick={handleProjectClick}>
+          Zebras
+        </li>
+        <li className="sortable" onClick={handleProjectClick}>
+          Carrots
+        </li>
+        <li className="sortable" onClick={handleProjectClick}>
+          Bananas
+        </li>
       </ul>
       {/* </div> */}
     </WrapperProjectMenu>

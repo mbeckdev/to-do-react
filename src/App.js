@@ -29,6 +29,7 @@ function App() {
         'longer1 description description description description description description description description description description description description is this part where it shows up when you click on it',
       dueDate: new Date('Dec 30 2000'),
       completed: false,
+      project: 'Apples',
     },
     {
       isEditing: false,
@@ -38,6 +39,7 @@ function App() {
       taskDescription: 'longer2 descripn you click on it',
       dueDate: new Date('Feb 1 2001'),
       completed: true,
+      project: 'Apples',
     },
     {
       isEditing: false,
@@ -47,6 +49,7 @@ function App() {
       taskDescription: 'longer3 descriptionsf sd fws up when you click on it',
       dueDate: new Date('Mar 1 2003'),
       completed: false,
+      project: 'Zebras',
     },
     {
       isEditing: false,
@@ -57,6 +60,7 @@ function App() {
         '4 description is this part where it shows up when you click on it',
       dueDate: new Date('Nov 1 1999'),
       completed: false,
+      project: 'Bananas',
     },
   ]);
 
@@ -70,6 +74,7 @@ function App() {
     // dueDate: 0,
     // dueDate: '',
     completed: false,
+    project: '',
   };
 
   const [manageTaskFormIsHidden, setManageTaskFormIsHidden] = useState(true);
@@ -138,6 +143,7 @@ function App() {
 
     let title = e.target.title.value;
     let description = e.target.taskDescription.value;
+    let project = e.target.project.value;
     let dueDateValue = e.target.dueDate.value;
 
     let dueDate;
@@ -160,6 +166,7 @@ function App() {
       dueDate: dueDate,
       // dueDate: new Date('Jan 2 2000'),
       completed: false,
+      project: project,
     };
 
     console.log('-----onsubmit before edit check isEditing', isEditing);
@@ -185,6 +192,7 @@ function App() {
       newTask.id = taskToEdit.id;
       newTask.descriptionIsShown = taskToEdit.descriptionIsShown;
       newTask.completed = taskToEdit.completed;
+      newTask.project = taskToEdit.project;
 
       newTasks[theIndex] = newTask;
       console.log('new task after editing = newTask = ', newTask);
@@ -302,6 +310,7 @@ function App() {
   const handleConsoleLogTasks = () => {
     console.log(tasks);
     console.log('taskToEdit', taskToEdit);
+    console.log('sortedTasks', sortedTasks);
   };
 
   const [showMobileMenu, setShowMobileMenu] = useState(true);
@@ -311,6 +320,33 @@ function App() {
     setShowMobileMenu((prev) => !prev);
     //Show Project menu on top of screen for mobile view
   };
+
+  const [sortedTasks, setSortedTasks] = useState(tasks);
+
+  const handleProjectClick = (e) => {
+    console.log('e.target.innerText= ', e.target.innerText);
+    // setStortingByTerm(e.target.innerText);
+
+    let clickedProject = e.target.innerText;
+    // like "Today" and "Week" and "Zebras"
+
+    //show only those that match the project.
+    let sortedListToShow = tasks.filter(
+      (task) => task.project === clickedProject
+    );
+    console.log('sortedListToShow', sortedListToShow);
+    setSortedTasks(sortedListToShow);
+    console.log('sortedTasks', sortedTasks);
+  };
+
+  // const [sortingByTerm, setSortingByTerm] = useState('');
+
+  // useEffect(() => {
+  //   effect
+  //   return () => {
+  //     cleanup
+  //   }
+  // }, [input])
 
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>
@@ -329,7 +365,10 @@ function App() {
               ) : (
                 <ProjectMenu className="menu-hidden" />
               )} */}
-              <ProjectMenu showMobileMenu={showMobileMenu} />
+              <ProjectMenu
+                showMobileMenu={showMobileMenu}
+                handleProjectClick={handleProjectClick}
+              />
 
               {!manageTaskFormIsHidden && (
                 <ManageTaskForm
@@ -350,7 +389,7 @@ function App() {
               >
                 console.log all tasks - deletemeeee
               </button>
-
+              <div>Project: {sortedTasks[0] && sortedTasks[0].project}</div>
               <div id="top-labels-row">
                 <div
                   id="due-date-label"
@@ -362,7 +401,8 @@ function App() {
               </div>
 
               <ul id="task-container">
-                {tasks.map((task) => (
+                {/* {tasks.map((task) => ( */}
+                {sortedTasks.map((task) => (
                   <Task
                     task={task}
                     key={task.id}
