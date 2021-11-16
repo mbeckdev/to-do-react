@@ -36,13 +36,13 @@ const WrapperApp = styled.section`
     background-color: #282c84;
     background-color: ${(props) => props.theme.colors.color5BlackLighter1};
     /* height: 100px; */
+    z-index: 45;
   }
 
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 0.5rem;
   }
 
   main #main-width-container {
@@ -54,6 +54,7 @@ const WrapperApp = styled.section`
     flex-direction: column;
     align-items: center;
     position: relative;
+    padding-top: 0.5rem;
   }
 
   @media screen and (min-width: 500px) {
@@ -73,7 +74,13 @@ const WrapperApp = styled.section`
     border: 1px solid red;
   }
 
-  // extra space so the footer won't ever be shown over something
+  .menu-hidden {
+    /* left: -50%; */
+    left: -255px;
+    /* background-color: green; */
+  }
+
+  /* // extra space so the footer won't ever be shown over something */
   main #extra-space {
     height: 1.6rem;
     border: 1px solid orange;

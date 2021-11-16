@@ -323,7 +323,13 @@ function App() {
 
           <main>
             <div id="main-width-container">
-              {showMobileMenu && <ProjectMenu />}
+              {/* {showMobileMenu && <ProjectMenu />} */}
+              {/* {showMobileMenu ? (
+                <ProjectMenu />
+              ) : (
+                <ProjectMenu className="menu-hidden" />
+              )} */}
+              <ProjectMenu showMobileMenu={showMobileMenu} />
 
               {!manageTaskFormIsHidden && (
                 <ManageTaskForm
@@ -370,7 +376,7 @@ function App() {
               </ul>
 
               <TestComponent />
-              <ProjectMenu />
+
               <div id="extra-space"></div>
             </div>
           </main>
