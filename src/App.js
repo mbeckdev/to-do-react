@@ -316,9 +316,13 @@ function App() {
   const [showMobileMenu, setShowMobileMenu] = useState(true);
 
   const handleHamburgerClick = () => {
+    openOrCloseMenu();
+    //Show Project menu on top of screen for mobile view
+  };
+
+  const openOrCloseMenu = () => {
     console.log('hamburger click showmobilemenu=', showMobileMenu);
     setShowMobileMenu((prev) => !prev);
-    //Show Project menu on top of screen for mobile view
   };
 
   const [sortedTasks, setSortedTasks] = useState(tasks);
@@ -337,6 +341,9 @@ function App() {
     console.log('sortedListToShow', sortedListToShow);
     setSortedTasks(sortedListToShow);
     console.log('sortedTasks', sortedTasks);
+
+    // Close the project window - same things as what handleHamburgerclick does
+    openOrCloseMenu();
   };
 
   // const [sortingByTerm, setSortingByTerm] = useState('');
@@ -389,7 +396,9 @@ function App() {
               >
                 console.log all tasks - deletemeeee
               </button>
+
               <div>Project: {sortedTasks[0] && sortedTasks[0].project}</div>
+
               <div id="top-labels-row">
                 <div
                   id="due-date-label"
