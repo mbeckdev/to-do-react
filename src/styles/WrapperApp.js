@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const WrapperApp = styled.section`
@@ -64,23 +63,26 @@ const WrapperApp = styled.section`
   }
 
   main #task-container {
-    /* max-width: 1500px; */
     min-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* justify-content: center; */
-
-    border: 1px solid red;
+    /* border: 1px solid red; */
   }
 
   .menu-hidden {
-    /* left: -50%; */
     left: -255px;
-    /* background-color: green; */
   }
 
+  #no-tasks-yet-placeholder {
+    color: ${(props) => props.theme.colors.color1Red};
+    width: 100%;
+  }
+
+  /*  ------------------------- */
   /* // extra space so the footer won't ever be shown over something */
+  /*  ------------------------- */
+
   main #extra-space {
     height: 1.6rem;
     border: 1px solid orange;
@@ -98,6 +100,10 @@ const WrapperApp = styled.section`
     bottom: 0;
   }
 
+  /*  ------------------------- */
+  /* top labels above tasks */
+  /*  ------------------------- */
+
   #top-labels-row {
     width: 100%;
     display: flex;
@@ -105,6 +111,7 @@ const WrapperApp = styled.section`
     align-items: flex-start;
     color: ${(props) => props.theme.colors.color3Green};
     background-color: ${(props) => props.theme.colors.color5BlackLighter1};
+
     #due-date-label {
       width: 110px;
       text-align: end;

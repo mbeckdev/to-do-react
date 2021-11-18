@@ -311,6 +311,7 @@ function App() {
     console.log(tasks);
     console.log('taskToEdit', taskToEdit);
     console.log('sortedTasks', sortedTasks);
+    console.log('sortTerm', sortTerm);
   };
 
   const [showMobileMenu, setShowMobileMenu] = useState(true);
@@ -329,7 +330,7 @@ function App() {
 
   const handleProjectClick = (e) => {
     console.log('e.target.innerText= ', e.target.innerText);
-    // setStortingByTerm(e.target.innerText);
+    setSortTerm(e.target.innerText);
 
     let clickedProject = e.target.innerText;
     // like "Today" and "Week" and "Zebras"
@@ -346,7 +347,7 @@ function App() {
     openOrCloseMenu();
   };
 
-  // const [sortingByTerm, setSortingByTerm] = useState('');
+  const [sortTerm, setSortTerm] = useState('All');
 
   // useEffect(() => {
   //   effect
@@ -397,7 +398,8 @@ function App() {
                 console.log all tasks - deletemeeee
               </button>
 
-              <div>Project: {sortedTasks[0] && sortedTasks[0].project}</div>
+              <div>Project: {sortTerm && sortTerm}</div>
+              {/* <div>Project: {sortedTasks[0] && sortedTasks[0].project}</div> */}
 
               <div id="top-labels-row">
                 <div
@@ -410,7 +412,6 @@ function App() {
               </div>
 
               <ul id="task-container">
-                {/* {tasks.map((task) => ( */}
                 {sortedTasks.map((task) => (
                   <Task
                     task={task}
@@ -422,6 +423,12 @@ function App() {
                     handleCheckboxClick={handleCheckboxClick}
                   />
                 ))}
+
+                {!sortedTasks[0] && (
+                  <div id="no-tasks-yet-placeholder">
+                    <p>It looks like there are no tasks here yet.</p>
+                  </div>
+                )}
               </ul>
 
               <TestComponent />
