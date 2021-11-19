@@ -1,7 +1,7 @@
 import './App.css';
 import TestComponent from './components/TestComponent';
 import styled, { ThemeProvider } from 'styled-components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import uniqid from 'uniqid';
 import { format, parseISO } from 'date-fns';
 
@@ -150,12 +150,17 @@ function App() {
     if (dueDateValue) {
       dueDate = _getLongDate(dueDateValue);
     } else {
-      console.log('***********duedate exists, but is = "" test', dueDate);
+      // console.log('***********duedate exists, but is = "" test', dueDate);
       dueDate = '';
     }
 
-    console.log('dueDate from value as new Date(...)', dueDate);
+    // console.log('dueDate from value as new Date(...)', dueDate);
+    console.log(
+      '1attempting setManageTaskFormIsHidden=',
+      manageTaskFormIsHidden
+    );
     setManageTaskFormIsHidden(true);
+    console.log('1after setManageTaskFormIsHidden=', manageTaskFormIsHidden);
 
     let newTask = {
       isEditing: false,
@@ -173,7 +178,9 @@ function App() {
     if (!isEditing) {
       // we are adding
       let newTasks = [...tasks, newTask];
+      console.log('2attempting setTasks(newTasks) tasks=', tasks);
       setTasks(newTasks);
+      console.log('2after attempting setTasks(newTasks) tasks=', tasks);
     } else {
       // we are editing
       let newTasks = tasks;
@@ -196,12 +203,23 @@ function App() {
 
       newTasks[theIndex] = newTask;
       console.log('new task after editing = newTask = ', newTask);
+      console.log('3attempting setTasks([...newTasks]) tasks=', tasks);
       setTasks([...newTasks]);
+      console.log('3after attempting setTasks([...newTasks]) tasks=', tasks);
     }
 
     // Clear taskToEdit so it's empty next time we open this form
     setTaskToEdit(emptyTask);
+    console.log('33333333333 sortTerm before updatesoretedlist', sortTerm);
+    // updateSortedList(sortTerm);
   };
+
+  useEffect(() => {
+    updateSortedList(sortTerm);
+    return () => {
+      console.log('cleanupsection');
+    };
+  }, [tasks]);
 
   const findIndexFromId = (thisId) => {
     const theTask = tasks.find((aTask) => aTask.id === thisId);
@@ -223,7 +241,7 @@ function App() {
   };
 
   const handleTaskDescriptionClick = (thisId) => {
-    console.log('handleDescriptionClick');
+    // console.log('handleDescriptionClick');
 
     // Hide the description
     // let theTask = tasks.find((aTask) => aTask.id === thisId);
@@ -236,7 +254,7 @@ function App() {
 
   // *** onChange inputs ***
   const handleOnChangeTaskInput = (e) => {
-    console.log('--handleOnChangeTaskInput--');
+    // console.log('--handleOnChangeTaskInput--');
     let prevTaskToEdit = taskToEdit;
 
     if (e.target.name === 'dueDate') {
@@ -247,12 +265,12 @@ function App() {
         [e.target.name]: e.target.value,
       });
 
-      console.log('handleOnchangeTaskInput');
-      console.log('e.target.name', e.target.name);
-      console.log('e.target.value', e.target.value);
+      // console.log('handleOnchangeTaskInput');
+      // console.log('e.target.name', e.target.name);
+      // console.log('e.target.value', e.target.value);
     }
 
-    console.log('taskToEdit', taskToEdit);
+    // console.log('taskToEdit', taskToEdit);
   };
 
   // e.target.name = title,
@@ -260,7 +278,7 @@ function App() {
 
   const handleCategoryLabelClick = (e, category) => {
     // category can be dueDate or something else later like
-    console.log('due date label clicked');
+    // console.log('due date label clicked');
 
     // pseudo code:
     // reorder tasks
@@ -292,8 +310,8 @@ function App() {
   };
 
   const handleCheckboxClick = (taskId) => {
-    console.log('checkbox clicked');
-    console.log('checkbox clicked taskId = ', taskId);
+    // console.log('checkbox clicked');
+    // console.log('checkbox clicked taskId = ', taskId);
 
     // find the task
     // change the task
@@ -322,29 +340,33 @@ function App() {
   };
 
   const openOrCloseMenu = () => {
-    console.log('hamburger click showmobilemenu=', showMobileMenu);
+    // console.log('hamburger click showmobilemenu=', showMobileMenu);
     setShowMobileMenu((prev) => !prev);
   };
 
   const [sortedTasks, setSortedTasks] = useState(tasks);
 
   const handleProjectClick = (e) => {
-    console.log('e.target.innerText= ', e.target.innerText);
+    // console.log('e.target.innerText= ', e.target.innerText);
     setSortTerm(e.target.innerText);
 
     let clickedProject = e.target.innerText;
     // like "Today" and "Week" and "Zebras"
 
     //show only those that match the project.
+    updateSortedList(clickedProject);
+
+    // Close the project window - same things as what handleHamburgerclick does
+    openOrCloseMenu();
+  };
+
+  const updateSortedList = (clickedProject) => {
     let sortedListToShow = tasks.filter(
       (task) => task.project === clickedProject
     );
     console.log('sortedListToShow', sortedListToShow);
     setSortedTasks(sortedListToShow);
     console.log('sortedTasks', sortedTasks);
-
-    // Close the project window - same things as what handleHamburgerclick does
-    openOrCloseMenu();
   };
 
   const [sortTerm, setSortTerm] = useState('All');

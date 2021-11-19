@@ -56,18 +56,18 @@ const WrapperManageTaskForm = styled.form`
 `;
 
 function ManageTaskForm(props) {
-  console.log('--managetaskform props.taskToEdit', props.taskToEdit);
+  // console.log('--managetaskform props.taskToEdit', props.taskToEdit);
 
-  console.log('props from managetaskform', props);
-  console.log('props.taskToEdit', props.taskToEdit);
-  console.log('props.taskToEdit.dueDate', props.taskToEdit.dueDate);
+  // console.log('props from managetaskform', props);
+  // console.log('props.taskToEdit', props.taskToEdit);
+  // console.log('props.taskToEdit.dueDate', props.taskToEdit.dueDate);
 
   // let shortVersionOfDate = format(
   //   parseISO(props.taskToEdit.dueDate),
   //   'yyyy-MM-dd'
   // );
   let dur = props.taskToEdit.dueDate;
-  console.log('dur', dur);
+  // console.log('dur', dur);
   // let parsedDur = parse(dur);
   // let shortVersionOfDate = toString(
   //   format(props.taskToEdit.dueDate, 'yyyy-MM-dd')
@@ -83,12 +83,12 @@ function ManageTaskForm(props) {
   }
   // let shortVersionOfDate = '';  // to show no date
 
-  console.log(
-    'isValid(parseISO(shortVersionOfDate))',
-    isValid(parseISO(shortVersionOfDate))
-  );
-  console.log('shortVersionOfDate.type', shortVersionOfDate.type);
-  console.log('22222222222222shortVersionOfDate', shortVersionOfDate);
+  // console.log(
+  //   'isValid(parseISO(shortVersionOfDate))',
+  //   isValid(parseISO(shortVersionOfDate))
+  // );
+  // console.log('shortVersionOfDate.type', shortVersionOfDate.type);
+  // console.log('22222222222222shortVersionOfDate', shortVersionOfDate);
 
   // let x = 4;
   // function bar() {
