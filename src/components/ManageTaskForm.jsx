@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { format, isValid, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 
 const WrapperManageTaskForm = styled.form`
   box-shadow: 0 0 10px black;
@@ -14,7 +14,6 @@ const WrapperManageTaskForm = styled.form`
   margin-right: auto;
   right: 0;
   background-color: ${(props) => props.theme.colors.color5BlackLighter1};
-  /* font-weight: 700; */
 
   .hidden {
     visibility: hidden;
@@ -56,67 +55,21 @@ const WrapperManageTaskForm = styled.form`
 `;
 
 function ManageTaskForm(props) {
-  // console.log('--managetaskform props.taskToEdit', props.taskToEdit);
-
-  // console.log('props from managetaskform', props);
-  // console.log('props.taskToEdit', props.taskToEdit);
-  // console.log('props.taskToEdit.dueDate', props.taskToEdit.dueDate);
-
-  // let shortVersionOfDate = format(
-  //   parseISO(props.taskToEdit.dueDate),
-  //   'yyyy-MM-dd'
-  // );
-  let dur = props.taskToEdit.dueDate;
-  // console.log('dur', dur);
-  // let parsedDur = parse(dur);
-  // let shortVersionOfDate = toString(
-  //   format(props.taskToEdit.dueDate, 'yyyy-MM-dd')
-  // );
-  // let shortVersionOfDate = toString(
-  //   format(props.taskToEdit.dueDate, 'yyyy-MM-dd')
-  // );
   let shortVersionOfDate;
   if (props.taskToEdit.dueDate) {
     shortVersionOfDate = format(props.taskToEdit.dueDate, 'yyyy-MM-dd');
   } else {
     shortVersionOfDate = '';
   }
-  // let shortVersionOfDate = '';  // to show no date
-
-  // console.log(
-  //   'isValid(parseISO(shortVersionOfDate))',
-  //   isValid(parseISO(shortVersionOfDate))
-  // );
-  // console.log('shortVersionOfDate.type', shortVersionOfDate.type);
-  // console.log('22222222222222shortVersionOfDate', shortVersionOfDate);
-
-  // let x = 4;
-  // function bar() {
-  //   console.log(x);
-  //   debugger;
-  // }
-  // bar();
 
   return (
     <WrapperManageTaskForm
       id="manage-task-form"
-      // className={hiddenOrNot}
       onSubmit={props.handleOnSubmit}
     >
-      <h2>Add Task</h2>
+      <h2>{props.isEditing ? 'Edit Task' : 'Add Task'}</h2>
       <div className="form-row">
         <label htmlFor="title">Title</label>
-        {/* {!props.isEditing ? (
-          <input autoFocus name="title" type="text" placeholder="your task" />
-        ) : (
-          <input
-            autoFocus
-            name="title"
-            type="text"
-            value={props.taskToEdit.title}
-            onChange={props.handleOnChangeTaskInput}
-          />
-        )} */}
         <input
           autoFocus
           name="title"
@@ -137,16 +90,7 @@ function ManageTaskForm(props) {
       </div>
       <div className="form-row">
         <label htmlFor="dueDate">Due Date</label>
-        <input
-          name="dueDate"
-          type="date"
-          // value={props.taskToEdit.dueDate}
-          // value="2022-08-08"
-          // value={shortVersionOfDate}
-          // defaultValue="2022-08-08"
-          defaultValue={shortVersionOfDate}
-          // onChange={props.handleOnChangeTaskInput}
-        />
+        <input name="dueDate" type="date" defaultValue={shortVersionOfDate} />
       </div>
       <div className="form-row">
         <label htmlFor="project">Project</label>
