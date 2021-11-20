@@ -6,8 +6,6 @@ import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
 
 const WrapperTask = styled.li`
-  /* margin-top: 1rem; */
-  /* line-height: 2rem; */
   width: 100%;
 
   .top-row {
@@ -18,12 +16,9 @@ const WrapperTask = styled.li`
 
   .task-title {
     text-align: left;
-    /* margin-left: 10px; */
     text-indent: -10px;
     padding-left: 15px;
     flex-grow: 11;
-
-    /* background-color: blue; */
   }
 
   input {
@@ -40,14 +35,12 @@ const WrapperTask = styled.li`
     letter-spacing: -2px;
 
     /* don't grow, don't shrink, width stays at this */
-    flex: 0 0 auto;
+    flex: 0 0 55px;
   }
 
   .description-section {
     text-align: left;
     padding: 0px 5px 10px 5px;
-    /* text-indent: 10px; */
-    /* background-color: red; */
   }
 
   @media screen and (min-width: 500px) {
@@ -58,10 +51,7 @@ const WrapperTask = styled.li`
 `;
 
 const getFormattedDueDate = (dueDate) => {
-  // console.log('.............dueDate from getFormattedDueDate ', dueDate);
-
   if (dueDate === '') {
-    // if (isNaN(dueDate.getTime())) {
     // Date was not entered:
     return '';
   } else {
@@ -70,18 +60,7 @@ const getFormattedDueDate = (dueDate) => {
 };
 
 function Task(props) {
-  // console.log(props.task);
-  // let
-
-  // console.log('props.task.dueDate', props.task.dueDate);
-  // console.log('props.task.description', props.task.description);
-  // console.log('props.task', props.task);
-  // console.log('props.task.descriptionIsShown', props.task.descriptionIsShown);
-
-  // console.log('props.task.descriptionIsShown', props.task.descriptionIsShown);
-  // console.log('this task duedate = ', props.task.dueDate);
   return (
-    // <div className="task">
     <WrapperTask className="task">
       <div className="top-row">
         <DeleteButton
@@ -101,12 +80,6 @@ function Task(props) {
           onClick={() => {
             props.handleCheckboxClick(props.task.id);
           }}
-          // {true && checked }
-          // checked
-
-          // the !! is necessary here to get rid of the . It convers null or undefined to false
-          //   and leaves true alone. - So React will register the checked property
-          // with a value of flase and start off with a controlled form component.
           defaultChecked={props.task.completed}
         />
         <div
@@ -125,7 +98,6 @@ function Task(props) {
         </div>
       )}
     </WrapperTask>
-    // </div>
   );
 }
 
