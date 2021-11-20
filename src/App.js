@@ -3,7 +3,7 @@ import TestComponent from './components/TestComponent';
 import styled, { ThemeProvider } from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import uniqid from 'uniqid';
-import { format, parseISO } from 'date-fns';
+import { format, isToday, parseISO, isThisWeek, isThisMonth } from 'date-fns';
 
 // React components
 import Task from './components/Task';
@@ -212,13 +212,14 @@ function App() {
     setTaskToEdit(emptyTask);
     console.log('33333333333 sortTerm before updatesoretedlist', sortTerm);
     // updateSortedList(sortTerm);
+    // this doesn't work here
   };
 
   useEffect(() => {
     updateSortedList(sortTerm);
-    return () => {
-      console.log('cleanupsection');
-    };
+    // return () => {
+    //   console.log('cleanupsection');
+    // };
   }, [tasks]);
 
   const findIndexFromId = (thisId) => {
@@ -361,9 +362,26 @@ function App() {
   };
 
   const updateSortedList = (clickedProject) => {
-    let sortedListToShow = tasks.filter(
-      (task) => task.project === clickedProject
-    );
+    let sortedListToShow = [];
+
+    if (clickedProject === 'All') {
+      sortedListToShow = [...tasks];
+    } else if (clickedProject === 'Today') {
+      sortedListToShow = tasks.filter((task) => isToday(task.dueDate));
+      console.log('sort by Today');
+    } else if (clickedProject === 'Week') {
+      sortedListToShow = tasks.filter((task) => isThisWeek(task.dueDate));
+      console.log('sort by Week');
+    } else if (clickedProject === 'Month') {
+      console.log('sort by Month');
+      sortedListToShow = tasks.filter((task) => isThisMonth(task.dueDate));
+    } else {
+      // It's a project
+      sortedListToShow = tasks.filter(
+        (task) => task.project === clickedProject
+      );
+    }
+
     console.log('sortedListToShow', sortedListToShow);
     setSortedTasks(sortedListToShow);
     console.log('sortedTasks', sortedTasks);

@@ -61,7 +61,9 @@ function ProjectMenu({ handleProjectClick, showMobileMenu }) {
     >
       {/* <div className={props.showMobileMenu && 'menu-hidden'}> */}
       <h2 className="menu-header">Projects</h2>
-      <div className="sortable">All</div>
+      <div className="sortable" onClick={handleProjectClick}>
+        All
+      </div>
 
       <h3 className="menu-header">By Date</h3>
       <ul>
