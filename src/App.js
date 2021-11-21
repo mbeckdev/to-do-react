@@ -83,12 +83,12 @@ function App() {
 
   const handleAddTask = () => {
     setIsEditing(false);
-    console.log('handling add task');
+    // console.log('handling add task');
     setManageTaskFormIsHidden(false);
   };
 
   const handleDeleteTask = (thisId) => {
-    console.log('handling delete task', thisId);
+    // console.log('handling delete task', thisId);
 
     let newTasks = tasks.filter((item) => item.id !== thisId);
     setTasks(newTasks);
@@ -97,17 +97,17 @@ function App() {
   const handleEditButtonClick = (thisId) => {
     setIsEditing(true);
 
-    console.log('33333333333333333handle edit button click');
+    // console.log('33333333333333333handle edit button click');
     const theIndex = findIndexFromId(thisId);
     let newTasks = tasks;
     setManageTaskFormIsHidden(false);
     let newTask = newTasks[theIndex];
 
     // newTask.dueDate = format(parseISO(newTask.dueDate), 'yyyy-MM-dd');
-    console.log('newTask.dueDate', newTask.dueDate);
+    // console.log('newTask.dueDate', newTask.dueDate);
     setTaskToEdit(newTask);
-    console.log('newTask', newTask);
-    console.log('taskToEdit3333', taskToEdit);
+    // console.log('newTask', newTask);
+    // console.log('taskToEdit3333', taskToEdit);
 
     //put things in form    .value
 
@@ -174,13 +174,13 @@ function App() {
       project: project,
     };
 
-    console.log('-----onsubmit before edit check isEditing', isEditing);
+    // console.log('-----onsubmit before edit check isEditing', isEditing);
     if (!isEditing) {
       // we are adding
       let newTasks = [...tasks, newTask];
-      console.log('2attempting setTasks(newTasks) tasks=', tasks);
+      // console.log('2attempting setTasks(newTasks) tasks=', tasks);
       setTasks(newTasks);
-      console.log('2after attempting setTasks(newTasks) tasks=', tasks);
+      // console.log('2after attempting setTasks(newTasks) tasks=', tasks);
     } else {
       // we are editing
       let newTasks = tasks;
@@ -202,15 +202,15 @@ function App() {
       newTask.project = taskToEdit.project;
 
       newTasks[theIndex] = newTask;
-      console.log('new task after editing = newTask = ', newTask);
-      console.log('3attempting setTasks([...newTasks]) tasks=', tasks);
+      // console.log('new task after editing = newTask = ', newTask);
+      // console.log('3attempting setTasks([...newTasks]) tasks=', tasks);
       setTasks([...newTasks]);
-      console.log('3after attempting setTasks([...newTasks]) tasks=', tasks);
+      // console.log('3after attempting setTasks([...newTasks]) tasks=', tasks);
     }
 
     // Clear taskToEdit so it's empty next time we open this form
     setTaskToEdit(emptyTask);
-    console.log('33333333333 sortTerm before updatesoretedlist', sortTerm);
+    // console.log('33333333333 sortTerm before updatesoretedlist', sortTerm);
     // updateSortedList(sortTerm);
     // this doesn't work here
   };
@@ -230,8 +230,8 @@ function App() {
   };
 
   const handleTaskTitleClick = (thisId) => {
-    console.log('handleTaskTitleClick');
-    console.log('thisId', thisId);
+    // console.log('handleTaskTitleClick');
+    // console.log('thisId', thisId);
     //if description is not shown, show description
     // else, hide description
     const theIndex = findIndexFromId(thisId);
@@ -277,6 +277,7 @@ function App() {
   // e.target.name = title,
   // task.title = e.target.value
 
+  const [dueDateSortNewestOnTop, setDueDateSortNewestOnTop] = useState(true);
   const handleCategoryLabelClick = (e, category) => {
     // category can be dueDate or something else later like
     // console.log('due date label clicked');
@@ -290,23 +291,47 @@ function App() {
     let newTasks = tasks;
     let swapped = true;
 
-    for (let i = 0; i < tasks.length - 1; i++) {
-      swapped = false;
-      for (let j = 0; j < tasks.length - 1; j++) {
-        if (newTasks[j][category] > newTasks[j + 1][category]) {
-          // swap the entire tasks
-          let tempTask = newTasks[j];
-          newTasks[j] = newTasks[j + 1];
-          newTasks[j + 1] = tempTask;
-          swapped = true;
-        }
-      }
+    if (category === 'dueDate') {
+      if (dueDateSortNewestOnTop) {
+        // sort newest on top
+        for (let i = 0; i < tasks.length - 1; i++) {
+          swapped = false;
+          for (let j = 0; j < tasks.length - 1; j++) {
+            if (newTasks[j][category] > newTasks[j + 1][category]) {
+              // swap the entire tasks
+              let tempTask = newTasks[j];
+              newTasks[j] = newTasks[j + 1];
+              newTasks[j + 1] = tempTask;
+              swapped = true;
+            }
+          }
 
-      if (!swapped) {
-        break;
+          if (!swapped) {
+            break;
+          }
+        }
+        setDueDateSortNewestOnTop(false);
+      } else {
+        // sort newest on bottom
+        for (let i = 0; i < tasks.length - 1; i++) {
+          swapped = false;
+          for (let j = 0; j < tasks.length - 1; j++) {
+            if (newTasks[j][category] < newTasks[j + 1][category]) {
+              // swap the entire tasks
+              let tempTask = newTasks[j];
+              newTasks[j] = newTasks[j + 1];
+              newTasks[j + 1] = tempTask;
+              swapped = true;
+            }
+          }
+
+          if (!swapped) {
+            break;
+          }
+        }
+        setDueDateSortNewestOnTop(true);
       }
     }
-
     setTasks([...newTasks]);
   };
 
@@ -327,10 +352,10 @@ function App() {
   };
 
   const handleConsoleLogTasks = () => {
-    console.log(tasks);
-    console.log('taskToEdit', taskToEdit);
-    console.log('sortedTasks', sortedTasks);
-    console.log('sortTerm', sortTerm);
+    // console.log(tasks);
+    // console.log('taskToEdit', taskToEdit);
+    // console.log('sortedTasks', sortedTasks);
+    // console.log('sortTerm', sortTerm);
   };
 
   const [showMobileMenu, setShowMobileMenu] = useState(true);
@@ -368,12 +393,12 @@ function App() {
       sortedListToShow = [...tasks];
     } else if (clickedProject === 'Today') {
       sortedListToShow = tasks.filter((task) => isToday(task.dueDate));
-      console.log('sort by Today');
+      // console.log('sort by Today');
     } else if (clickedProject === 'Week') {
       sortedListToShow = tasks.filter((task) => isThisWeek(task.dueDate));
-      console.log('sort by Week');
+      // console.log('sort by Week');
     } else if (clickedProject === 'Month') {
-      console.log('sort by Month');
+      // console.log('sort by Month');
       sortedListToShow = tasks.filter((task) => isThisMonth(task.dueDate));
     } else {
       // It's a project
@@ -382,9 +407,9 @@ function App() {
       );
     }
 
-    console.log('sortedListToShow', sortedListToShow);
+    // console.log('sortedListToShow', sortedListToShow);
     setSortedTasks(sortedListToShow);
-    console.log('sortedTasks', sortedTasks);
+    // console.log('sortedTasks', sortedTasks);
   };
 
   const [sortTerm, setSortTerm] = useState('All');
