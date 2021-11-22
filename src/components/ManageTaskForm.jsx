@@ -52,6 +52,13 @@ const WrapperManageTaskForm = styled.form`
       height: 5rem;
     }
   }
+
+  #cancel-button {
+    padding: 4px 9px;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 `;
 
 function ManageTaskForm(props) {
@@ -67,6 +74,13 @@ function ManageTaskForm(props) {
       id="manage-task-form"
       onSubmit={props.handleOnSubmit}
     >
+      <button
+        id="cancel-button"
+        className="regular-button"
+        onClick={props.handleCancelAddOrEditTask}
+      >
+        &#10006;
+      </button>
       <h2>{props.isEditing ? 'Edit Task' : 'Add Task'}</h2>
       <div className="form-row">
         <label htmlFor="title">Title</label>
