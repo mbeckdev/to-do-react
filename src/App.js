@@ -392,6 +392,7 @@ function App() {
               <ProjectMenu
                 showMobileMenu={showMobileMenu}
                 handleProjectClick={handleProjectClick}
+                tasks={tasks}
               />
 
               {!manageTaskFormIsHidden && (

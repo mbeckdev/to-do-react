@@ -1,35 +1,21 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import WrapperApp from '../styles/WrapperApp';
+// import WrapperApp from '../styles/WrapperApp';
 
 const WrapperProjectMenu = styled.div`
-  /* background-color: blue; */
   background: ${(props) => props.theme.colors.color5BlackLighter1};
-
   width: 250px;
-
   position: absolute;
   top: 0;
   left: 0;
   z-index: 10;
 
   transition: left 0.35s ease-in-out;
-
   text-align: left;
-  /* padding: 5px; */
-  /* border: 4px solid black; */
   box-shadow: 1px 1px 5px black;
-  /* .menu-hidden {
-    transition: left 0.35s ease-in-out;
-    position: absolute;
-    left: -50%;
-    /* left: -250px; */
-  /* background-color: green; */
-  /* }  */
+
   .menu-header {
-    /* border: 1px solid red; */
-    /* background-color: darkblue; */
     background: ${(props) => props.theme.colors.color5Black};
     text-align: center;
   }
@@ -52,20 +38,37 @@ const WrapperProjectMenu = styled.div`
   }
 `;
 
-function ProjectMenu({ handleProjectClick, showMobileMenu }) {
+function ProjectMenu({ handleProjectClick, showMobileMenu, tasks }) {
+  let projectList = [];
+  let interimProjectList = tasks.map((task) => task.project);
+  // ['b','a','b','c']
+  projectList = interimProjectList.filter(
+    (value, index, array) => array.indexOf(value) === index
+  );
+  // ['b','a', 'c']
+  projectList.sort((a, b) => {
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    return 0;
+  });
+
   return (
     <WrapperProjectMenu
       id="project-menu"
-      // className="menu-hidden"
       className={showMobileMenu && 'menu-hidden'}
     >
-      {/* <div className={props.showMobileMenu && 'menu-hidden'}> */}
       <h2 className="menu-header">Projects</h2>
+
       <div className="sortable" onClick={handleProjectClick}>
         All
       </div>
 
       <h3 className="menu-header">By Date</h3>
+
       <ul>
         <li className="sortable" onClick={handleProjectClick}>
           Today
@@ -79,21 +82,16 @@ function ProjectMenu({ handleProjectClick, showMobileMenu }) {
       </ul>
 
       <h3 className="menu-header">Projects</h3>
+
+      {/* I'm using the name of the project as the key because 
+      I know this will always be unique */}
       <ul>
-        <li className="sortable" onClick={handleProjectClick}>
-          Apples
-        </li>
-        <li className="sortable" onClick={handleProjectClick}>
-          Zebras
-        </li>
-        <li className="sortable" onClick={handleProjectClick}>
-          Carrots
-        </li>
-        <li className="sortable" onClick={handleProjectClick}>
-          Bananas
-        </li>
+        {projectList.map((project) => (
+          <li className="sortable" key={project} onClick={handleProjectClick}>
+            {project}
+          </li>
+        ))}
       </ul>
-      {/* </div> */}
     </WrapperProjectMenu>
   );
 }
