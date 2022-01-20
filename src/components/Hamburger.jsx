@@ -1,9 +1,9 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import WrapperApp from './styles/WrapperApp';
+// import WrapperApp from '../styles/WrapperApp';
 
-const WrapperHamburger = styled.section`
+const WrapperHamburger = styled.div`
   position: absolute;
   left: 0;
 
@@ -24,28 +24,10 @@ const WrapperHamburger = styled.section`
     margin: 2px 0;
   }
 
-  @media only screen and (min-width: 700px) {
-    /* h1 {
-    margin-left: 10px;
-  }
-
-  nav {
-    position: relative;
-    top: 0;
-  } */
-
-    #hamburger {
-      display: none;
-    }
-    /* 
-  #nav-main-container {
-    display: grid;
-    grid-template-columns: auto 1fr;
-  }
-
-  .nav-is-left {
-    transform: none;
-  } */
+  /* Hide hamburger button in desktop view */
+  @media only screen and (min-width: 1400px) {
+    /* display: none;
+    border: 1px solid red; */
   }
 `;
 
