@@ -9,7 +9,7 @@ import { format, isToday, parseISO, isThisWeek, isThisMonth } from 'date-fns';
 import Task from './components/Task';
 import ManageTaskForm from './components/ManageTaskForm';
 import ProjectMenu from './components/ProjectMenu';
-import Hamburger from './Hamburger';
+import Hamburger from './components/Hamburger';
 
 // Styled components and colors imports
 import { darkTheme, lightTheme } from './colors';
@@ -337,7 +337,7 @@ function App() {
     updateSortedList(clickedProject);
 
     // Close the project window - same things as what handleHamburgerclick does
-    openOrCloseMenu();
+    // openOrCloseMenu();
   };
 
   const updateSortedList = (clickedProject) => {
@@ -378,7 +378,7 @@ function App() {
         <div className="app">
           <header className="app-header">
             <h1>TO DO LIST</h1>
-            <Hamburger handleHamburgerClick={handleHamburgerClick} />
+            {/* <Hamburger handleHamburgerClick={handleHamburgerClick} /> */}
           </header>
 
           <main>
