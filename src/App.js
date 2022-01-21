@@ -1,7 +1,7 @@
 import './App.css';
 import TestComponent from './components/TestComponent';
 import styled, { ThemeProvider } from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import uniqid from 'uniqid';
 import { format, isToday, parseISO, isThisWeek, isThisMonth } from 'date-fns';
 
@@ -9,7 +9,7 @@ import { format, isToday, parseISO, isThisWeek, isThisMonth } from 'date-fns';
 import Task from './components/Task';
 import ManageTaskForm from './components/ManageTaskForm';
 import ProjectMenu from './components/ProjectMenu';
-import Hamburger from './Hamburger';
+import Hamburger from './components/Hamburger';
 
 // Styled components and colors imports
 import { darkTheme, lightTheme } from './colors';
@@ -316,8 +316,23 @@ function App() {
 
   const [showMobileMenu, setShowMobileMenu] = useState(true);
 
+  const ref = useRef(null);
+
+  // useEffect(() => {
+  //   console.log('width', ref.current.offsetWidth);
+  //   console.log('ref.current', ref.current);
+  //   console.log('window.innerHeight', window.innerHeight);
+  // }, []);
+
+  // const [inMobileView, setInMobileView] = useState(true);
+
   const handleHamburgerClick = () => {
     openOrCloseMenu();
+    // if (inMobileView) {
+    //   openOrCloseMenu();
+    // } else {
+    //   // do nothing
+    // }
     //Show Project menu on top of screen for mobile view
   };
 
@@ -375,7 +390,7 @@ function App() {
   return (
     <ThemeProvider theme={useLightTheme ? lightTheme : darkTheme}>
       <WrapperApp>
-        <div className="app">
+        <div className="app" ref={ref}>
           <header className="app-header">
             <h1>TO DO LIST</h1>
             <Hamburger handleHamburgerClick={handleHamburgerClick} />
@@ -389,6 +404,7 @@ function App() {
               ) : (
                 <ProjectMenu className="menu-hidden" />
               )} */}
+
               <ProjectMenu
                 showMobileMenu={showMobileMenu}
                 handleProjectClick={handleProjectClick}

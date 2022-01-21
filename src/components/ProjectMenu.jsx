@@ -32,9 +32,11 @@ const WrapperProjectMenu = styled.div`
     padding-top: 5px;
   }
 
-  @media only screen and (min-width: 700px) {
-    /* bigger than mobile view */
-    background-color: red;
+  /* bigger than mobile view */
+  @media only screen and (min-width: 900px) {
+    .menu-header {
+      background-color: red;
+    }
   }
 `;
 
