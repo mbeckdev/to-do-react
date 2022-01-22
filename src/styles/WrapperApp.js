@@ -45,10 +45,9 @@ const WrapperApp = styled.section`
   }
 
   main #main-width-container {
-    /* min-width: 900px; */
     max-width: 900px;
     width: 100%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     display: flex;
     flex-direction: row;
 
@@ -58,7 +57,7 @@ const WrapperApp = styled.section`
   }
 
   .main-tasks-and-buttons-container {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     flex: 1;
   }
 
@@ -91,7 +90,7 @@ const WrapperApp = styled.section`
 
   main #extra-space {
     height: 1.6rem;
-    border: 1px solid orange;
+    /* border: 1px solid orange; */
   }
 
   ul {
@@ -100,7 +99,7 @@ const WrapperApp = styled.section`
 
   footer {
     height: 1.6rem;
-    border: 1px solid yellow;
+    /* border: 1px solid yellow; */
     position: absolute;
     width: 100%;
     bottom: 0;

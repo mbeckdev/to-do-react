@@ -10,6 +10,7 @@ const WrapperProjectMenu = styled.div`
   /* top: 0; */
   /* left: 0; */
   z-index: 10;
+  margin-right: 5px;
 
   transition: left 0.35s ease-in-out;
   text-align: left;
@@ -21,7 +22,7 @@ const WrapperProjectMenu = styled.div`
   }
   .sortable {
     padding: 0 5px;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     cursor: pointer;
     margin: 2px;
   }
@@ -34,7 +35,7 @@ const WrapperProjectMenu = styled.div`
 
   @media only screen and (min-width: 700px) {
     /* bigger than mobile view */
-    background-color: red;
+    /* background-color: red; */
   }
 `;
 
