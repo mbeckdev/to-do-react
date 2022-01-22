@@ -6,9 +6,9 @@ import styled from 'styled-components';
 const WrapperProjectMenu = styled.div`
   background: ${(props) => props.theme.colors.color5BlackLighter1};
   width: 250px;
-  position: absolute;
-  top: 0;
-  left: 0;
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
   z-index: 10;
 
   transition: left 0.35s ease-in-out;

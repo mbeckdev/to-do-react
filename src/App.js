@@ -405,53 +405,55 @@ function App() {
                 />
               )}
 
-              <button className="regular-button" onClick={handleAddTask}>
-                ADD TASK
-              </button>
+              <div className="main-tasks-and-buttons-container">
+                <button className="regular-button" onClick={handleAddTask}>
+                  ADD TASK
+                </button>
 
-              <button
-                className="regular-button"
-                onClick={handleConsoleLogTasks}
-              >
-                console.log all tasks - deletemeeee
-              </button>
-
-              <div>Project: {sortTerm && sortTerm}</div>
-              {/* <div>Project: {sortedTasks[0] && sortedTasks[0].project}</div> */}
-
-              <div id="top-labels-row">
-                <div
-                  id="due-date-label"
-                  onClick={(e) => handleCategoryLabelClick(e, 'dueDate')}
+                <button
+                  className="regular-button"
+                  onClick={handleConsoleLogTasks}
                 >
-                  Due Date
-                </div>
-                <div id="task-label">Task</div>
-              </div>
+                  console.log all tasks - deletemeeee
+                </button>
 
-              <ul id="task-container">
-                {sortedTasks.map((task) => (
-                  <Task
-                    task={task}
-                    key={task.id}
-                    handleDeleteTask={handleDeleteTask}
-                    handleTaskTitleClick={handleTaskTitleClick}
-                    handleTaskDescriptionClick={handleTaskDescriptionClick}
-                    handleEditButtonClick={handleEditButtonClick}
-                    handleCheckboxClick={handleCheckboxClick}
-                  />
-                ))}
+                <div>Project: {sortTerm && sortTerm}</div>
+                {/* <div>Project: {sortedTasks[0] && sortedTasks[0].project}</div> */}
 
-                {!sortedTasks[0] && (
-                  <div id="no-tasks-yet-placeholder">
-                    <p>It looks like there are no tasks here yet.</p>
+                <div id="top-labels-row">
+                  <div
+                    id="due-date-label"
+                    onClick={(e) => handleCategoryLabelClick(e, 'dueDate')}
+                  >
+                    Due Date
                   </div>
-                )}
-              </ul>
+                  <div id="task-label">Task</div>
+                </div>
 
-              <TestComponent />
+                <ul id="task-container">
+                  {sortedTasks.map((task) => (
+                    <Task
+                      task={task}
+                      key={task.id}
+                      handleDeleteTask={handleDeleteTask}
+                      handleTaskTitleClick={handleTaskTitleClick}
+                      handleTaskDescriptionClick={handleTaskDescriptionClick}
+                      handleEditButtonClick={handleEditButtonClick}
+                      handleCheckboxClick={handleCheckboxClick}
+                    />
+                  ))}
 
-              <div id="extra-space"></div>
+                  {!sortedTasks[0] && (
+                    <div id="no-tasks-yet-placeholder">
+                      <p>It looks like there are no tasks here yet.</p>
+                    </div>
+                  )}
+                </ul>
+
+                <TestComponent />
+
+                <div id="extra-space"></div>
+              </div>
             </div>
           </main>
           <footer>footer here</footer>

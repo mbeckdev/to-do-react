@@ -50,10 +50,16 @@ const WrapperApp = styled.section`
     width: 100%;
     border: 1px solid green;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+
+    justify-content: center;
     position: relative;
     padding-top: 0.5rem;
+  }
+
+  .main-tasks-and-buttons-container {
+    border: 1px solid red;
+    flex: 1;
   }
 
   @media screen and (min-width: 500px) {
